@@ -88,25 +88,18 @@ For each revision it can be seen exactly what fields has changed and what the va
 #### Publishing statistics
 Get an overview, with the first of Apparatus CIA's dashboard widgets, of how fast and intensive your content team is working. Identify peak periods and potential bottlenecks by looking at numbers of finalized and published content pieces as well as the time they have been in the making. Compare it to key metrics for instance for fastest and slowest production time as well as the average time to produce a content piece in any given time period.
 
+![Local Audit Trail: Publishing Performance - part 1](docs/images/localAuditTrail1.png?raw=true "Local Audit Trail: Publishing Performance - part 1")
+![Local Audit Trail: Publishing Performance - part 2](docs/images/localAuditTrail1.png?raw=true "Local Audit Trail: Publishing Performance - part 2")
 
 #### Workflow bottlenecks and overdue tasks
 With the second widget you are enabled to select specific workflow states and provide a threshold counted in days and hours and based on your input see all item versions that are still pending in that state. The widget allows you to click directly on any versoin you want to pick up the work on and have you redirected to the page builder with that version in focus ready to work. 
 
+![Workflow: Overdue Tasks](docs/images/WorkflowOverdueTasks.png?raw=true "Workflow: Overdue Tasks")
 
 
-⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
+#### Page builder context panel
 
-Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:
 
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
-
-You can embed images of different formats too:
-
-![Deal With It](docs/images/deal-with-it.gif?raw=true "Deal With It")
-
-And you can embed external images too:
-
-![Random](https://thiscatdoesnotexist.com/)
 
 ## Comments
 If you'd like to make additional comments that is important for your module entry.
