@@ -1,5 +1,7 @@
-GET https://localhost:7000/api/query/05e4eb24-ad77-4183-b273-5fa8a8f7e5e6/items?ids=184ac1a0-8666-41df-9ace-be7524cc789b;e8db867a-66a6-4754-9d1b-fb98726a252a
+POST https://localhost:7000/api/query/05e4eb24-ad77-4183-b273-5fa8a8f7e5e6/items
+Content-Type: application/json
 
-###
-
-GET https://localhost:7000/api/query/123/items?ids=111
+{ "ids": [
+    "184ac1a0-8666-41df-9ace-be7524cc789b",
+    "e8db867a-66a6-4754-9d1b-fb98726a252a"
+]}

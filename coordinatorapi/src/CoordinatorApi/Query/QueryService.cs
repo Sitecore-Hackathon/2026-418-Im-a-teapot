@@ -8,11 +8,11 @@ public class QueryService(ElasticsearchClient client)
 {
     private string _indexName => $"audit-{DateTime.UtcNow:yyyy.MM}";
 
-    public async Task<IEnumerable<IndexChangeModel>> GetItems(string sitecoreInstanceId, string ids, HttpContext http, CancellationToken cancellationToken)
+    public async Task<IEnumerable<IndexChangeModel>> GetItems(string sitecoreInstanceId, ItemQueryModel ids, CancellationToken cancellationToken)
     {
         var itemIds = new List<FieldValue>();
 
-        foreach (var id in ids.Split(';'))
+        foreach (var id in ids.Ids)
         {
             itemIds.Add(FieldValue.String(id));
         }
@@ -35,7 +35,7 @@ public class QueryService(ElasticsearchClient client)
                 )
             )
             .Sort(ss => ss.Field(f => f.Timestamp, SortOrder.Desc))
-        );
+        , cancellationToken);
 
         if (!response.IsValidResponse)
         {
@@ -49,5 +49,4 @@ public class QueryService(ElasticsearchClient client)
 
         return response.Documents;
     }
-
 }
