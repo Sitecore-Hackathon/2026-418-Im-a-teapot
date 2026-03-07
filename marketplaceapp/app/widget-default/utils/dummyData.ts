@@ -110,7 +110,6 @@ export function processChartData(metrics: PublishingMetric[]): {
     average: allTimes.reduce((sum, t) => sum + t, 0) / allTimes.length,
     median: calculateMedian(allTimes),
     totalItems: allTimes.length,
-    successRate: 100, // All items in dummy data are published
   }
 
   return { chartData, stats }
