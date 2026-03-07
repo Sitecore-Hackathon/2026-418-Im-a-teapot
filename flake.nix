@@ -1,5 +1,5 @@
 {
-  description = ".NET 10 and node dev environment, start by running 'nix develop'";
+  description = ".NET 10 and node dev environment, start with 'nix develop'";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -41,12 +41,6 @@
               echo "dotnet: $(dotnet --version)"
               echo "node  : $(node --version)"
               echo "npm   : $(npm --version)"
-
-              echo -e "\nUpdating compose stack...\n"
-              docker compose pull
-
-              echo -e "\nStarting compose stack...\n"
-              docker compose up -d
             '';
           };
         }

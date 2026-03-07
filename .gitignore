@@ -51,3 +51,4 @@ _ReSharper*/
 #Nuget packages folder
 packages/
 .env
+appsettings.[Dd]evelopment.json

@@ -1,7 +1,7 @@
 ﻿
 using CoordinatorApi.Shared;
 using Elastic.Clients.Elasticsearch;
-using Elastic.Clients.Elasticsearch.Nodes;
+using Elastic.Transport;
 
 namespace CoordinatorApi.ElasticsearchStorage;
 
@@ -11,18 +11,9 @@ public static class ElasticsearchStorageStartupExtensions
     {
         builder.Services.AddSingleton(sp =>
         {
-            var settings = sp.GetRequiredService<IConfiguration>().GetSection(ElasticsearchSettings.Key).Get<ElasticsearchSettings>();
+            var settings = sp.GetRequiredService<IConfiguration>().GetSection(ElasticsearchSettings.Key).Get<ElasticsearchSettings>() ?? throw new InvalidOperationException("Missing configuration.");
 
-            if (settings == null)
-            {
-                throw new InvalidOperationException("Missing configuration.");
-            }
-
-            var clientSettings = new ElasticsearchClientSettings(settings.Uri);
-
-            clientSettings.ServerCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => true);
-
-            return new ElasticsearchClient(clientSettings);
+            return new ElasticsearchClient(settings.CloudId, new ApiKey(settings.ApiKey));
         });
 
         builder.Services.AddTransient<IStorageClient, ElasticsearchStorageClient>();
