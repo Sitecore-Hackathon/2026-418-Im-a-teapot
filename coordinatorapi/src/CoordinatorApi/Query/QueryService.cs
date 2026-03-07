@@ -5,12 +5,14 @@ namespace CoordinatorApi.Query;
 
 public class QueryService(ElasticsearchClient client)
 {
+    private string _indexName => $"audit-{DateTime.UtcNow:yyyy.MM}";
+
     public async Task<IEnumerable<IndexChangeModel>> GetItems(string sitecoreInstanceId, string ids, HttpContext http, CancellationToken cancellationToken)
     {
         var response = await client.SearchAsync<IndexChangeModel>(s => s
-            .Indices("audit-*")
+            .Indices(_indexName)
             .From(0)
-            .Size(50)
+            .Size(100)
             .Query(q => q
                 .Term(t => t
                     .Field(x => x.SitecoreInstance)
@@ -29,7 +31,7 @@ public class QueryService(ElasticsearchClient client)
             throw new Exception("Communication error while querying data.");
         }
 
-        return response.Hits.Select(hit => hit.Source).Where(source => source != null)!;
+        return response.Documents;
     }
 
 }

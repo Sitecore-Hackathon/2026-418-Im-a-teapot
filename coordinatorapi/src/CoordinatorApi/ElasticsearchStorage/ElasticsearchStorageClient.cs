@@ -8,11 +8,9 @@ namespace CoordinatorApi.ElasticsearchStorage;
 
 public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageClient
 {
-    private static readonly string _indexPrefix = "audit";
-
     private static readonly Guid _fieldIdEditor = new Guid("badd9cf9-53e0-4d0c-bcc0-2d784c282f6a");
 
-    private string _indexName => $"{_indexPrefix}-{DateTime.UtcNow:yyyy.MM}";
+    private string _indexName => $"audit-{DateTime.UtcNow:yyyy.MM}";
 
     public async Task Add(string sitecoreInstanceId, SitecoreWebHookModel model, string? raw, CancellationToken cancellationToken)
     {

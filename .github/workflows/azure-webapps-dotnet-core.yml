@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to an Azure Web App
+name: Build and deploy ASP.NET Core app to an Azure Web App
 
 env:
     AZURE_WEBAPP_NAME: coordinatorapi
@@ -20,7 +20,7 @@ jobs:
         steps:
             - uses: actions/checkout@v6
 
-            - name: Set up .NET Core
+            - name: Set up .NET
               uses: actions/setup-dotnet@v5
               with:
                   dotnet-version: ${{ env.DOTNET_VERSION }}
@@ -33,10 +33,10 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-nuget
 
-            - name: Build with dotnet
+            - name: Run dotnet build
               run: dotnet build --configuration Release ./coordinatorapi/src/CoordinatorApi/CoordinatorApi.csproj
 
-            - name: dotnet publish
+            - name: Run dotnet publish
               run: dotnet publish -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/app ./coordinatorapi/src/CoordinatorApi/CoordinatorApi.csproj
 
             - name: Deploy to Azure Web App
