@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import {
     type ApplicationResourceContext,
 } from "@sitecore-marketplace-sdk/core";
@@ -9,9 +9,8 @@ import {
 import { XMC } from "@sitecore-marketplace-sdk/xmc";
 import { readWebhookQuery, type WebhookItem } from "./webhook-queries";
 
-async function fetchItem(client: ClientSDK, xmCloudResourceAccess: ApplicationResourceContext) {
+async function fetchItem(client: ClientSDK, xmCloudResourceAccess: ApplicationResourceContext): Promise<[WebhookItem, string?]> {
     const sitecoreContextId = xmCloudResourceAccess.context.preview;
-    console.log(readWebhookQuery);
 
     const response: any = await client.query("xmc.authoring.graphql", {
         params: {
@@ -21,11 +20,12 @@ async function fetchItem(client: ClientSDK, xmCloudResourceAccess: ApplicationRe
             }
         }
     });
+    const error = response?.error;
     const resultItem: WebhookItem = response?.data?.data?.data?.item;
-    return resultItem;
+    return [resultItem, error];
 }
 
-export const useWebhookState = (appContext: ApplicationContext, client: ClientSDK) => {
+export const useWebhookState = (appContext: ApplicationContext, client: ClientSDK): [WebhookItem | null, Dispatch<SetStateAction<WebhookItem | null>>] => {
 
     const [item, setItem] = useState<WebhookItem | null>(null);
 
@@ -35,9 +35,16 @@ export const useWebhookState = (appContext: ApplicationContext, client: ClientSD
             return;
         }
 
-        fetchItem(client, xmCloudResourceAccess).then(result => setItem(result));
+        fetchItem(client, xmCloudResourceAccess).then(result => {
+            const [resultItem, error] = result;
+            if (error) {
+                console.error(error);
+            } else {
+                setItem(resultItem);
+            }
+        });
 
     }, [client, appContext]);
 
-    return [item]
+    return [item ?? null, setItem];
 };
