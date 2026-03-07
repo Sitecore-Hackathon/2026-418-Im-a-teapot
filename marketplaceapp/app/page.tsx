@@ -1,6 +1,7 @@
 "use client";
 
 import { ApplicationContext } from "@/components/examples/built-in-auth/application-context";
+import { InitializationPage } from "@/components/initialization/InitializationPage";
 
 function Examples() {
   return (
@@ -15,6 +16,7 @@ function Examples() {
       </div>
 
       <ApplicationContext />
+      <InitializationPage />
     </div>
   );
 }

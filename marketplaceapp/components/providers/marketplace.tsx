@@ -4,6 +4,7 @@ import {
   type ApplicationContext,
   ClientSDK,
 } from "@sitecore-marketplace-sdk/client";
+import { XMC } from "@sitecore-marketplace-sdk/xmc";
 import type React from "react";
 import {
   type ReactNode,
@@ -12,7 +13,6 @@ import {
   useEffect,
   useState,
 } from "react";
-// import { XMC } from "@sitecore-marketplace-sdk/xmc";
 
 interface ClientSDKProviderProps {
   children: ReactNode;
@@ -44,8 +44,7 @@ export const MarketplaceProvider: React.FC<ClientSDKProviderProps> = ({
     const init = async () => {
       const config = {
         target: window.parent,
-        // Enable if your app uses XMC APIs
-        // modules: [XMC]
+        modules: [XMC]
       };
       try {
         setLoading(true);
@@ -73,7 +72,7 @@ export const MarketplaceProvider: React.FC<ClientSDKProviderProps> = ({
         <div>{error}</div>
         <div>
           Please check if the client SDK is loaded inside Sitecore Marketplace
-          parent window and you have properly set your app's extention points.
+          parent window and you have properly set your app&apos;s extention points.
         </div>
       </div>
     );
