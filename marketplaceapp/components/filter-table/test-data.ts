@@ -1,25 +1,43 @@
-import type { ActionEntry } from "./types";
+export interface FieldChange {
+  fieldName: string
+  beforeValue: string | number | boolean | null
+  afterValue: string | number | boolean | null
+}
 
-export const fetchDataWithFilters = async (filters: Record<string, unknown>) : Promise<ActionEntry[]> => {
-  console.log("Fetching data with filters:", filters);
+export interface ActionEntry {
+  id: string
+  datetime: Date | string
+  stateBefore: string
+  stateAfter: string
+  actionPerformed: string
+  numberOfFields: number
+  fieldChanges: FieldChange[]
+  user: string
+  [key: string]: unknown // Allow additional properties
+}
+
+export const fetchDataWithFilters = async (
+  filters: Record<string, unknown>
+): Promise<ActionEntry[]> => {
+  console.log("Fetching data with filters:", filters)
   // In a real app, this would be an API call
   // return await api.getActions(filters)
 
   // For demo purposes, filter the sample data
   if (Object.keys(filters).length === 0) {
-    return sampleData;
+    return sampleData
   }
 
   return sampleData.filter((entry) => {
-    if (filters.user && entry.user !== filters.user) return false;
+    if (filters.user && entry.user !== filters.user) return false
     if (
       filters.action &&
       !entry.actionPerformed.includes(filters.action as string)
     )
-      return false;
-    return true;
-  });
-};
+      return false
+    return true
+  })
+}
 
 export const sampleData: ActionEntry[] = [
   {
@@ -85,4 +103,4 @@ export const sampleData: ActionEntry[] = [
     ],
     user: "editor",
   },
-];
+]

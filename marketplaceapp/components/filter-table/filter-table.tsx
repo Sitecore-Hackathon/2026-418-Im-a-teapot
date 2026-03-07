@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import { useState, useEffect, useCallback, Fragment } from "react";
+import { useState, useCallback, useEffect, Fragment } from "react"
 import {
   Table,
   TableHeader,
@@ -8,277 +8,177 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@/components/ui/table";
-import { FilterBar, FilterDefinition } from "@/components/ui/filter";
+} from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
 import {
-  Collapsible,
-  CollapsibleTrigger,
-  CollapsibleContent,
-} from "@/components/ui/collapsible";
-import { Badge } from "@/components/ui/badge";
-import { Icon } from "@/lib/icon";
-import { mdiChevronDown, mdiChevronRight, mdiClockOutline } from "@mdi/js";
-import { cn } from "@/lib/utils";
-import type {
-  ActionEntry,
-  FilterTableProps,
-  FilterTableState,
-  DataFetchFunction,
-} from "./types";
-import { Button } from "../ui/button";
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
+import { Icon } from "@/lib/icon"
+import { mdiChevronDown, mdiChevronRight, mdiClockOutline } from "@mdi/js"
+import { cn } from "@/lib/utils"
+import { DateRangeFilter } from "./date-range-filter"
+import type { ActionEntry, FieldChange } from "./test-data"
 
 export function FilterTable({
   data,
-  filters = [],
   showFieldChanges = true,
   emptyStateMessage = "No actions found",
   className,
   onRowExpand,
   onFilterChange,
-  serverSideFiltering = false,
   debounceTime = 300,
-}: FilterTableProps) {
-  const [state, setState] = useState<FilterTableState>({
-    expandedRows: new Set(),
-    filterValues: {},
-    filteredData: [],
+}: {
+  data:
+    | ActionEntry[]
+    | ((
+        filters: Record<string, unknown>
+      ) => ActionEntry[] | Promise<ActionEntry[]>)
+  showFieldChanges?: boolean
+  emptyStateMessage?: string
+  className?: string
+  onRowExpand?: (entry: ActionEntry, isExpanded: boolean) => void
+  onFilterChange?: (filters: Record<string, unknown>) => void
+  debounceTime?: number
+}) {
+  const [state, setState] = useState({
+    expandedRows: new Set<string>(),
+    filterValues: {} as Record<string, unknown>,
+    filteredData: [] as ActionEntry[],
     isLoading: true,
-    error: null,
-  });
+    error: null as Error | null,
+  })
 
-  // Fetch and process data
+  // Fetch data from API with current filters
   const fetchData = useCallback(
     async (currentFilters: Record<string, unknown> = {}) => {
       try {
-        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+        setState((prev) => ({ ...prev, isLoading: true, error: null }))
 
-        let dataResult;
+        let dataResult
         if (typeof data === "function") {
-          // If it's a function, call it with filters if server-side filtering is enabled
-          if (serverSideFiltering) {
-            dataResult = await (data as DataFetchFunction)(currentFilters);
-          } else {
-            dataResult = await (
-              data as () => ActionEntry[] | Promise<ActionEntry[]>
-            )();
-          }
+          dataResult = await (
+            data as (
+              filters: Record<string, unknown>
+            ) => ActionEntry[] | Promise<ActionEntry[]>
+          )(currentFilters)
         } else {
-          dataResult = data;
+          dataResult = data
         }
 
-        const entries = Array.isArray(dataResult) ? dataResult : [];
-
+        const entries = Array.isArray(dataResult) ? dataResult : []
         setState((prev) => ({
           ...prev,
           filteredData: entries,
           isLoading: false,
-        }));
+        }))
       } catch (error) {
         setState((prev) => ({
           ...prev,
           error:
             error instanceof Error ? error : new Error("Failed to load data"),
           isLoading: false,
-        }));
+        }))
       }
     },
-    [data, serverSideFiltering]
-  );
+    [data]
+  )
 
-  // Apply filters to data
-  const applyFilters = useCallback(
-    (entries: ActionEntry[], filters: Record<string, unknown>) => {
-      return entries.filter((entry) => {
-        // Date filter
-        if (filters.date && entry.datetime) {
-          const entryDate = new Date(entry.datetime);
-          const filterDate = new Date(filters.date as string);
-          if (entryDate.toDateString() !== filterDate.toDateString()) {
-            return false;
-          }
-        }
-
-        // User filter
-        if (filters.user && entry.user) {
-          const filterUsers = Array.isArray(filters.user)
-            ? filters.user
-            : [filters.user];
-          if (!filterUsers.includes(entry.user)) {
-            return false;
-          }
-        }
-
-        // Action filter
-        if (filters.action && entry.actionPerformed) {
-          const filterActions = Array.isArray(filters.action)
-            ? filters.action
-            : [filters.action];
-          if (
-            !filterActions.some((action: string) =>
-              entry.actionPerformed.toLowerCase().includes(action.toLowerCase())
-            )
-          ) {
-            return false;
-          }
-        }
-
-        // Field filter
-        if (filters.field && entry.fieldChanges) {
-          const fieldFilter = (filters.field as string).toLowerCase();
-          if (
-            !entry.fieldChanges.some((change) =>
-              change.fieldName.toLowerCase().includes(fieldFilter)
-            )
-          ) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-    },
-    []
-  );
-
-  // Handle filter changes
-  const handleFilterChange = useCallback(
-    (key: string, value: unknown) => {
-      const newFilterValues = { ...state.filterValues, [key]: value };
-      setState((prev) => ({ ...prev, filterValues: newFilterValues }));
+  // Handle date range filter changes (immediate API call)
+  const handleDateRangeChange = useCallback(
+    (range: { after?: Date; before?: Date }) => {
+      const newFilters = { ...state.filterValues, dateRange: range }
+      setState((prev) => ({ ...prev, filterValues: newFilters }))
 
       if (onFilterChange) {
-        onFilterChange(newFilterValues);
+        onFilterChange(newFilters)
       }
 
-      // If server-side filtering is enabled, fetch new data
-      if (serverSideFiltering) {
-        // Use setTimeout to debounce the API call
-        const timer = setTimeout(() => {
-          fetchData(newFilterValues);
-        }, debounceTime);
-
-        return () => clearTimeout(timer);
-      }
+      // Immediate fetch for date changes
+      fetchData(newFilters)
     },
-    [
-      state.filterValues,
-      onFilterChange,
-      serverSideFiltering,
-      debounceTime,
-      fetchData,
-    ]
-  );
+    [state.filterValues, onFilterChange, fetchData]
+  )
 
-  // Handle clear all filters
+  // Handle other filter changes (debounced API call)
+  const handleFilterChange = useCallback(
+    (key: string, value: unknown) => {
+      const newFilters = { ...state.filterValues, [key]: value }
+
+      // Check if filters actually changed
+      const filtersChanged =
+        JSON.stringify(state.filterValues) !== JSON.stringify(newFilters)
+      if (!filtersChanged) {
+        return
+      }
+
+      setState((prev) => ({ ...prev, filterValues: newFilters }))
+
+      if (onFilterChange) {
+        onFilterChange(newFilters)
+      }
+
+      // Debounced fetch for other filters
+      const timer = setTimeout(() => {
+        fetchData(newFilters)
+      }, debounceTime)
+
+      return () => clearTimeout(timer)
+    },
+    [state.filterValues, onFilterChange, debounceTime, fetchData]
+  )
+
   const handleClearAll = useCallback(() => {
-    setState((prev) => ({ ...prev, filterValues: {} }));
+    setState((prev) => ({ ...prev, filterValues: {} }))
     if (onFilterChange) {
-      onFilterChange({});
+      onFilterChange({})
     }
-  }, [onFilterChange]);
+  }, [onFilterChange])
 
-  // Toggle row expansion
   const toggleRowExpansion = useCallback(
     (entryId: string) => {
-      const newExpandedRows = new Set(state.expandedRows);
+      const newExpandedRows = new Set(state.expandedRows)
       if (newExpandedRows.has(entryId)) {
-        newExpandedRows.delete(entryId);
+        newExpandedRows.delete(entryId)
       } else {
-        newExpandedRows.add(entryId);
+        newExpandedRows.add(entryId)
       }
 
-      setState((prev) => ({ ...prev, expandedRows: newExpandedRows }));
+      setState((prev) => ({ ...prev, expandedRows: newExpandedRows }))
 
-      const entry = state.filteredData.find((e) => e.id === entryId);
+      const entry = state.filteredData.find((e) => e.id === entryId)
       if (entry && onRowExpand) {
-        onRowExpand(entry, !state.expandedRows.has(entryId));
+        onRowExpand(entry, !state.expandedRows.has(entryId))
       }
     },
     [state.expandedRows, state.filteredData, onRowExpand]
-  );
+  )
 
-  // Format date
   const formatDate = useCallback((date: Date | string) => {
-    if (!date) return "-";
+    if (!date) return "-"
 
-    const dateObj = typeof date === "string" ? new Date(date) : date;
-    if (isNaN(dateObj.getTime())) return "Invalid date";
+    const dateObj = typeof date === "string" ? new Date(date) : date
+    if (isNaN(dateObj.getTime())) return "Invalid date"
 
-    // Simple formatting - can be enhanced with date-fns or similar
-    return dateObj.toLocaleString();
-  }, []);
+    return dateObj.toLocaleString()
+  }, [])
+
+  const formatFieldValue = (value: unknown): string => {
+    if (value === null) return "null"
+    if (value === undefined) return "undefined"
+    if (typeof value === "boolean") return value ? "true" : "false"
+    return String(value)
+  }
 
   // Initialize data on mount
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  // Apply filters when data or filters change (only for client-side filtering)
-  useEffect(() => {
-    if (
-      !serverSideFiltering &&
-      state.filteredData.length > 0 &&
-      Object.keys(state.filterValues).length > 0
-    ) {
-      const filtered = applyFilters(state.filteredData, state.filterValues);
-      setState((prev) => ({ ...prev, filteredData: filtered }));
-    }
-  }, [
-    state.filterValues,
-    state.filteredData,
-    applyFilters,
-    serverSideFiltering,
-  ]);
-
-  // Default filters if none provided
-  const defaultFilters: FilterDefinition[] = [
-    {
-      type: "input",
-      key: "date",
-      props: {
-        placeholder: "Filter by date...",
-        ariaLabel: "Filter by date",
-      },
-    },
-    {
-      type: "single-select",
-      key: "user",
-      props: {
-        placeholder: "Filter by user",
-        options: Array.from(
-          new Set(state.filteredData.map((entry) => entry.user))
-        ).map((user) => ({ value: user, label: user })),
-      },
-    },
-    {
-      type: "single-select",
-      key: "action",
-      props: {
-        placeholder: "Filter by action",
-        options: Array.from(
-          new Set(state.filteredData.map((entry) => entry.actionPerformed))
-        ).map((action) => ({ value: action, label: action })),
-      },
-    },
-    {
-      type: "input",
-      key: "field",
-      props: {
-        placeholder: "Filter by field name...",
-        ariaLabel: "Filter by field name",
-      },
-    },
-  ];
-
-  const filtersToUse = filters.length > 0 ? filters : defaultFilters;
-
-  // Format field value for display
-  const formatFieldValue = (value: unknown): string => {
-    if (value === null) return "null";
-    if (value === undefined) return "undefined";
-    if (typeof value === "boolean") return value ? "true" : "false";
-    return String(value);
-  };
+    fetchData()
+  }, [fetchData])
 
   if (state.isLoading) {
     return (
@@ -288,7 +188,7 @@ export function FilterTable({
           <span>Loading actions...</span>
         </div>
       </div>
-    );
+    )
   }
 
   if (state.error) {
@@ -296,7 +196,7 @@ export function FilterTable({
       <div className={cn("py-8 text-center text-destructive", className)}>
         <p>Error loading actions: {state.error.message}</p>
       </div>
-    );
+    )
   }
 
   if (state.filteredData.length === 0) {
@@ -304,22 +204,85 @@ export function FilterTable({
       <div className={cn("py-8 text-center text-muted-foreground", className)}>
         <p>{emptyStateMessage}</p>
       </div>
-    );
+    )
   }
+
+  // Extract unique values for filter options
+  const users = Array.from(
+    new Set(state.filteredData.map((entry) => entry.user))
+  )
+  const actions = Array.from(
+    new Set(state.filteredData.map((entry) => entry.actionPerformed))
+  )
 
   return (
     <div className={cn("space-y-4", className)}>
       {/* Filter Controls */}
       <div className="border-b pb-4">
-        <FilterBar
-          filters={filtersToUse}
-          values={state.filterValues}
-          onChange={handleFilterChange}
-          onClearAll={handleClearAll}
-          showClearAll={Object.keys(state.filterValues).length > 0}
-          direction="horizontal"
-          gap="gap-4"
-        />
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Date Range Filter */}
+          <DateRangeFilter
+            value={
+              state.filterValues.dateRange as { after?: Date; before?: Date }
+            }
+            onChange={handleDateRangeChange}
+          />
+
+          {/* User Filter */}
+          <Select
+            value={(state.filterValues.user as string) || ""}
+            onValueChange={(value) => handleFilterChange("user", value)}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by user" />
+            </SelectTrigger>
+            <SelectContent>
+              {users.map((user) => (
+                <SelectItem key={user} value={user}>
+                  {user}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Action Filter */}
+          <Select
+            value={(state.filterValues.action as string) || ""}
+            onValueChange={(value) => handleFilterChange("action", value)}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by action" />
+            </SelectTrigger>
+            <SelectContent>
+              {actions.map((action) => (
+                <SelectItem key={action} value={action}>
+                  {action}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Field Filter */}
+          <Input
+            type="text"
+            value={(state.filterValues.field as string) || ""}
+            onChange={(e) => handleFilterChange("field", e.target.value)}
+            placeholder="Filter by field name..."
+            className="w-[180px]"
+          />
+
+          {/* Clear All Button */}
+          {Object.keys(state.filterValues).length > 0 && (
+            <Button
+              onClick={handleClearAll}
+              variant="link"
+              size="sm"
+              className="w-fit"
+            >
+              Clear all filters
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Main Table */}
@@ -342,7 +305,11 @@ export function FilterTable({
               <TableRow>
                 <TableCell>
                   {showFieldChanges && entry.fieldChanges.length > 0 && (
-                    <Button onClick={() => toggleRowExpansion(entry.id)} variant="outline" size="icon-sm">
+                    <Button
+                      onClick={() => toggleRowExpansion(entry.id)}
+                      variant="outline"
+                      size="icon-sm"
+                    >
                       {state.expandedRows.has(entry.id) ? (
                         <Icon path={mdiChevronDown} size={1} />
                       ) : (
@@ -376,31 +343,26 @@ export function FilterTable({
                           <th className="p-2 text-left font-medium">
                             Field Name
                           </th>
-                          <th className="p-2 text-left font-medium">
-                            Before
-                          </th>
-                          <th className="p-2 text-left font-medium">
-                            After
-                          </th>
+                          <th className="p-2 text-left font-medium">Before</th>
+                          <th className="p-2 text-left font-medium">After</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {entry.fieldChanges.map((change, index) => (
-                          <tr
-                            key={index}
-                            className="border-b last:border-0"
-                          >
-                            <td className="p-2 font-mono">
-                              {change.fieldName}
-                            </td>
-                            <td className="p-2">
-                              {formatFieldValue(change.beforeValue)}
-                            </td>
-                            <td className="p-2">
-                              {formatFieldValue(change.afterValue)}
-                            </td>
-                          </tr>
-                        ))}
+                        {entry.fieldChanges.map(
+                          (change: FieldChange, index: number) => (
+                            <tr key={index} className="border-b last:border-0">
+                              <td className="p-2 font-mono">
+                                {change.fieldName}
+                              </td>
+                              <td className="p-2">
+                                {formatFieldValue(change.beforeValue)}
+                              </td>
+                              <td className="p-2">
+                                {formatFieldValue(change.afterValue)}
+                              </td>
+                            </tr>
+                          )
+                        )}
                       </tbody>
                     </table>
                   </TableCell>
@@ -410,6 +372,6 @@ export function FilterTable({
           ))}
         </TableBody>
       </Table>
-    </div >
-  );
+    </div>
+  )
 }

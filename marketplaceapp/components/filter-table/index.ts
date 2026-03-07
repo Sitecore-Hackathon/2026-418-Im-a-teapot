@@ -1,2 +1,2 @@
 export { FilterTable } from "./filter-table"
-export type { ActionEntry, FilterTableProps } from "./types"
+export type { ActionEntry } from "./test-data"

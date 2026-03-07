@@ -44,7 +44,7 @@ function SelectTrigger({
       {...props}
     >
       {children}
-      <SelectPrimitive.Icon render={<Icon path={mdiChevronDown} size={1.3} className="opacity-50" />}></SelectPrimitive.Icon>
+      <SelectPrimitive.Icon><Icon path={mdiChevronDown} size={1.3} className="opacity-50" /></SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
 }
