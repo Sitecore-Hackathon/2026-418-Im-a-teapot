@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { type PagesContext } from '@sitecore-marketplace-sdk/client';
-import { useMarketplaceClient } from "@/components/providers/marketplace";
+import { type PagesContext, type ApplicationContext } from '@sitecore-marketplace-sdk/client';
+import { useAppContext, useMarketplaceClient } from "@/components/providers/marketplace";
 import {
     Card,
     CardDescription,
@@ -13,31 +13,42 @@ import { Spinner } from "@/components/ui/spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineVersions, dummyVersionsData } from "@/components/timeline-versions/timeline-version";
 import { FilterTable } from "@/components/filter-table";
-import { fetchDataWithFilters } from "@/components/filter-table/test-data";
+import { getItems, type ChangeModel } from '@/lib/api';
+
+async function fetchData(appContext?: ApplicationContext, pageContext?: PagesContext, filters?: Record<string, unknown>) {
+    if (!appContext?.installationId || !pageContext?.pageInfo?.id) {
+        return [];
+    }
+    const response = await getItems(appContext.installationId, [pageContext?.pageInfo?.id]);
+    return response;
+}
 
 function PageContextWidget() {
     const client = useMarketplaceClient();
-    const [page, setPage] = useState<PagesContext>();
+    const appContext = useAppContext();
 
-    const getData = (filters: Record<string, unknown>) => {
-        return fetchDataWithFilters(filters);
-    };
+    const [page, setPage] = useState<PagesContext>();
+    const [data, setData] = useState<ChangeModel[]>();
 
     useEffect(() => {
         client.query("pages.context", {
             subscribe: true,
             onSuccess: data => {
+                setData(undefined);
                 setPage(undefined);
-                setTimeout(() => setPage(data?.pageInfo), 500)
+
+                setPage(data?.pageInfo);
+                fetchData(appContext, page, {}).then(x => setData(x));
             },
             onError: err => {
                 setPage(undefined);
+                setData(undefined);
                 console.warn(err);
             },
         });
-    }, [client]);
+    }, [client, appContext, page]);
 
-    if (!page) {
+    if (!page || !data) {
         return <Spinner variant="primary" />;
     }
 
@@ -70,7 +81,7 @@ function PageContextWidget() {
                 </TabsContent>
             </Tabs>
             <FilterTable
-                data={getData}
+                data={data}
                 showFieldChanges={true}
                 debounceTime={500}
                 emptyStateMessage="No actions found matching your criteria"

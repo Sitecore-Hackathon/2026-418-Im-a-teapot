@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, Fragment } from "react";
+import { mdiChevronDown, mdiChevronRight, mdiChevronUp, mdiClockOutline } from "@mdi/js";
 import {
   Table,
   TableHeader,
@@ -18,13 +19,11 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Icon } from "@/lib/icon";
-import { mdiChevronDown, mdiChevronRight, mdiChevronUp, mdiClockOutline } from "@mdi/js";
 import { cn } from "@/lib/utils";
+import type { ChangeModel, FieldChangedValue } from '@/lib/api';
 import { DateRangeFilter } from "./date-range-filter";
-import type { ActionEntry, FieldChange } from "./test-data";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
-
 
 export function FilterTable({
   data,
@@ -36,15 +35,11 @@ export function FilterTable({
   debounceTime = 300,
   openFiltersByDefault = true
 }: {
-  data:
-  | ActionEntry[]
-  | ((
-    filters: Record<string, unknown>
-  ) => ActionEntry[] | Promise<ActionEntry[]>);
+  data:  ChangeModel[]
   showFieldChanges?: boolean;
   emptyStateMessage?: string;
   className?: string;
-  onRowExpand?: (entry: ActionEntry, isExpanded: boolean) => void;
+  onRowExpand?: (entry: ChangeModel, isExpanded: boolean) => void;
   onFilterChange?: (filters: Record<string, unknown>) => void;
   debounceTime?: number;
   openFiltersByDefault?: boolean;
@@ -52,7 +47,7 @@ export function FilterTable({
   const [state, setState] = useState({
     expandedRows: new Set<string>(),
     filterValues: {} as Record<string, unknown>,
-    filteredData: [] as ActionEntry[],
+    filteredData: [] as ChangeModel[],
     isLoading: true,
     error: null as Error | null,
   });
@@ -70,7 +65,7 @@ export function FilterTable({
           dataResult = await (
             data as (
               filters: Record<string, unknown>
-            ) => ActionEntry[] | Promise<ActionEntry[]>
+            ) => ChangeModel[] | Promise<ChangeModel[]>
           )(currentFilters);
         } else {
           dataResult = data;
@@ -156,7 +151,7 @@ export function FilterTable({
 
       setState((prev) => ({ ...prev, expandedRows: newExpandedRows }));
 
-      const entry = state.filteredData.find((e) => e.id === entryId);
+      const entry = state.filteredData.find((e) => e.storageId === entryId);
       if (entry && onRowExpand) {
         onRowExpand(entry, !state.expandedRows.has(entryId));
       }
@@ -217,7 +212,7 @@ export function FilterTable({
     new Set(state.filteredData.map((entry) => entry.user))
   );
   const actions = Array.from(
-    new Set(state.filteredData.map((entry) => entry.actionPerformed))
+    new Set(state.filteredData.map((entry) => entry.webHookData.eventName))
   );
 
   return (
@@ -311,17 +306,17 @@ export function FilterTable({
         </TableHeader>
         <TableBody>
           {state.filteredData.map((entry) => (
-            <Fragment key={entry.id}>
+            <Fragment key={entry.storageId}>
               {/* Main Row */}
               <TableRow>
                 <TableCell>
-                  {showFieldChanges && entry.fieldChanges.length > 0 && (
+                  {showFieldChanges && entry.webHookData.changes?.fieldChanges?.length > 0 && (
                     <Button
-                      onClick={() => toggleRowExpansion(entry.id)}
+                      onClick={() => toggleRowExpansion(entry.storageId)}
                       variant="outline"
                       size="icon-sm"
                     >
-                      {state.expandedRows.has(entry.id) ? (
+                      {state.expandedRows.has(entry.storageId) ? (
                         <Icon path={mdiChevronDown} size={1} />
                       ) : (
                         <Icon path={mdiChevronRight} size={1} />
@@ -329,20 +324,19 @@ export function FilterTable({
                     </Button>
                   )}
                 </TableCell>
-                <TableCell>{formatDate(entry.datetime)}</TableCell>
-                <TableCell>{entry.stateBefore}</TableCell>
-                <TableCell>{entry.stateAfter}</TableCell>
-                <TableCell>{entry.actionPerformed}</TableCell>
+                <TableCell>{formatDate(entry.timestamp)}</TableCell>
+                <TableCell>{entry.workflowStateId}</TableCell>
+                <TableCell>{entry.user}</TableCell>
                 <TableCell>
                   <Badge colorScheme="primary" size="sm">
-                    {entry.numberOfFields}
+                    {entry.webHookData.changes.fieldChanges.length}
                   </Badge>
                 </TableCell>
                 <TableCell>{entry.user}</TableCell>
               </TableRow>
 
               {/* Expandable Field Changes */}
-              {state.expandedRows.has(entry.id) && (
+              {state.expandedRows.has(entry.storageId) && (
                 <TableRow>
                   <TableCell colSpan={7} className="p-0">
                     <div className="mb-2 text-sm text-muted-foreground">
@@ -359,17 +353,17 @@ export function FilterTable({
                         </tr>
                       </thead>
                       <tbody>
-                        {entry.fieldChanges.map(
-                          (change: FieldChange, index: number) => (
+                        {entry.webHookData.changes.fieldChanges.map(
+                          (change: FieldChangedValue, index: number) => (
                             <tr key={index} className="border-b last:border-0">
                               <td className="p-2 font-mono">
-                                {change.fieldName}
+                                {change.id}
                               </td>
                               <td className="p-2">
-                                {formatFieldValue(change.beforeValue)}
+                                {formatFieldValue(change.originalValue)}
                               </td>
                               <td className="p-2">
-                                {formatFieldValue(change.afterValue)}
+                                {formatFieldValue(change.value)}
                               </td>
                             </tr>
                           )

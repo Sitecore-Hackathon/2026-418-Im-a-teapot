@@ -15,11 +15,11 @@ export async function createWebhookItem(appContext: ApplicationContext, client: 
 
     const request = makeCreateWebhookQuery(sitecoreContextId, instanceId);
 
-    const response: any = await client.mutate("xmc.authoring.graphql", {
+    const response = await client.mutate("xmc.authoring.graphql", {
         params: request,
     });
-    const error = response?.error ?? response?.data?.errors;
-    const resultItem: WebhookItem = response?.data?.data?.data?.item;
+    const error = (response as any)?.error ?? response?.data?.errors;
+    const resultItem: WebhookItem = (response?.data?.data?.data as any)?.item;
 
     console.debug('Creating webhook for Marketplace', {
         resultItem,
@@ -42,11 +42,11 @@ export async function updateWebhookItem(appContext: ApplicationContext, client: 
     }
 
     const request = makeUpdateWebhookQuery(sitecoreContextId, instanceId, existingItem.itemId)
-    const response: any = await client.mutate("xmc.authoring.graphql", {
+    const response = await client.mutate("xmc.authoring.graphql", {
         params: request,
     });
-    const error = response?.error ?? response?.data?.errors;
-    const resultItem: WebhookItem = response?.data?.data?.data?.item;
+    const error = (response as any)?.error ?? response?.data?.errors;
+    const resultItem: WebhookItem = (response?.data?.data?.data as any)?.item;
 
     console.debug('Updating webhook for Marketplace', {
         resultItem,
