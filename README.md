@@ -18,12 +18,12 @@
 ### Apparatus CIA brings Control, Insight and Audit\*\* to your Sitecore content lifecycle.
 
 #### The Why
-
 Content operations move fast, not the least due to AI — and things get lost. Who changed what? When did it happen? Why did a piece of content stall being published? Governance and compliance demand clear answers.
 
 The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
 
 #### The What
+Current features include:
 
 - Manage revisions even within the same version of a content piece
 - Track deletions in addition to creations and modifications
@@ -38,7 +38,8 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
 - Components
 - Screenshots
 
-#### The Next - TBW
+#### The Next
+Upcoming features include: 
 
 - Compare revisions side-by-side with color indication of changes
 - See indications if linked items have been deleted (internal links, datasources, images or documents)
