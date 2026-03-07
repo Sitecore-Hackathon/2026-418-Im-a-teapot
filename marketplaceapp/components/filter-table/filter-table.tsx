@@ -262,15 +262,6 @@ export function FilterTable({
             </SelectContent>
           </Select>
 
-          {/* Field Filter */}
-          <Input
-            type="text"
-            value={(state.filterValues.field as string) || ""}
-            onChange={(e) => handleFilterChange("field", e.target.value)}
-            placeholder="Filter by field name..."
-            className="w-[180px]"
-          />
-
           {/* Clear All Button */}
           {Object.keys(state.filterValues).length > 0 && (
             <Button
