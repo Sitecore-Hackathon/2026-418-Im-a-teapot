@@ -50,12 +50,17 @@ public class QueryService(ElasticsearchClient client)
             throw new Exception("Communication error while querying data.");
         }
 
-
-
         var results = new ItemsQueryResult();
 
-        foreach (var document in response.Documents)
+        foreach (var hit in response.Hits)
         {
+            var document = hit.Source;
+
+            if (document == null)
+            {
+                continue;
+            }
+
             using var stream = new MemoryStream(Encoding.UTF8.GetBytes(document.Raw));
             var model = await JsonSerializer.DeserializeAsync<SitecoreWebHookModel>(stream, cancellationToken: cancellationToken);
 
@@ -65,6 +70,8 @@ public class QueryService(ElasticsearchClient client)
             }
 
             results.Items.Add(new ItemResult(
+                document.Timestamp,
+                hit.Id,
                 document.User,
                 document.WorkflowId,
                 document.WorkflowStateId,
@@ -79,5 +86,5 @@ public class QueryService(ElasticsearchClient client)
         public IList<ItemResult> Items { get; set; } = [];
     }
 
-    public record ItemResult(string? User, string? WorkflowId, string? WorkflowStateId, SitecoreWebHookModel WebHookData);
+    public record ItemResult(DateTime Timestamp, string StorageId, string? User, string? WorkflowId, string? WorkflowStateId, SitecoreWebHookModel WebHookData);
 }
