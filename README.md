@@ -18,12 +18,12 @@
 ### Apparatus CIA brings Control, Insight and Audit\*\* to your Sitecore content lifecycle.
 
 #### The Why
-
 Content operations move fast, not the least due to AI — and things get lost. Who changed what? When did it happen? Why did a piece of content stall being published? Governance and compliance demand clear answers.
 
 The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
 
 #### The What
+Current features include:
 
 - Manage revisions even within the same version of a content piece
 - Track deletions in addition to creations and modifications
@@ -38,7 +38,8 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
 - Components
 - Screenshots
 
-#### The Next - TBW
+#### The Next
+Upcoming features include: 
 
 - Compare revisions side-by-side with color indication of changes
 - See indications if linked items have been deleted (internal links, datasources, images or documents)
@@ -63,7 +64,7 @@ _Remove this subsection if your entry does not have any prerequisites other than
 
 ## Installation instructions
 
-When approved by Sitecore:
+When approved as a public Marketplace app by Sitecore: 
 
 Follow the steps from <https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app> and select Apparatus CIA as the app you want to install.
 
@@ -101,7 +102,26 @@ With the second widget you are enabled to select specific workflow states and pr
 ![Workflow: Overdue Tasks](docs/images/workflowOverdueTasks.png?raw=true "Workflow: Overdue Tasks")
 
 #### Page builder context panel
+Being in the context of a specific item, you are able to open the page builder context panel and see two different views for the Records of Revisions for that item. 
+
+In the first view you will have a timeline overview of how the item has moved through a workflow 
+followed by a table of all the different versions even if in the same workflow state, which is not possible in the default workflow engine, and see the exact field changes. There are filtering options providing you with only relevant revisions, for instance made by the same author. 
+
+![Page Builder Context Panel: Versions](docs/images/PageContextPanel-Versions.png?raw=true "Page Builder Context Panel: Versions")
+
+The second view pivots around the workflow states and can in the same way as the first be filtered, for instance to sepcific states. Again exact changes can be seen.
+
+![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png?raw=true "Page Builder Context Panel: Workflow - part 1")
+
+![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png?raw=true "Page Builder Context Panel: Workflow - part 2")
+
 
 ## Comments
+The Marketplace app is conform to the requirements for being published as a Public app in accordance with:
 
-If you'd like to make additional comments that is important for your module entry.
+https://statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html
+
+Required policies: 
+  - [Privacy Policy](docs/policies/Privacy_Policy.md)
+  - [Data Processing Addendum](docs/policies/DPA.md)
+
