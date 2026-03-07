@@ -9,7 +9,7 @@ export interface PublishingMetric {
   version: number
   createdDate: string // ISO date string
   publishedDate: string // ISO date string
-  timeToPublishMs: number // Calculated: publishedDate - createdDate
+  timeToPublish: number // Calculated: publishedDate - createdDate
   publishedBy: string
 }
 
@@ -28,7 +28,6 @@ export interface TimeToPublishStats {
   average: number
   median: number
   totalItems: number
-  successRate: number
 }
 
 export interface FilterOptions {
