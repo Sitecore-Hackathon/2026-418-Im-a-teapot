@@ -12,7 +12,6 @@ public static class ReceiveStartupExtensions
         builder.Services.AddSingleton(sp => sp.GetRequiredService<Channel<ReceivedWebhookData>>().Reader);
         builder.Services.AddSingleton(sp => sp.GetRequiredService<Channel<ReceivedWebhookData>>().Writer);
         builder.Services.AddSingleton<WebhookReceiveService>();
-        builder.Services.AddSingleton<IStorageClient, InMemoryStorageClient>();
     }
 
     public static WebApplication MapReceive(this WebApplication app)

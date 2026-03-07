@@ -41,7 +41,7 @@ public class QueuedHostedService : BackgroundService
                     continue;
                 }
 
-                await _client.Add(id, model, raw);
+                await _client.Add(id, model, raw, stoppingToken);
 
                 _logger.LogInformation("Stored {EventName} from {SitecoreId}: {Raw}", model.EventName, id, raw);
             }

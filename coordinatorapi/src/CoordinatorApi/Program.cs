@@ -1,8 +1,10 @@
+using CoordinatorApi.ElasticsearchStorage;
 using CoordinatorApi.Receive;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddReceive();
+builder.AddElasticsearchStorage();
 
 var app = builder.Build();
 
