@@ -23,10 +23,9 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
 
   - Manage revisions even within the same version of a content piece
   - Track deletions in addition to creations and modifications
-  - Compare revisions side-by-side 
-  - Revert revisions
   - Sort, filter and export of records of revision
   - Inspect revisions in the context of an item
+  - See statistics on dashboard widgets (number of items published, fastest, slowest and average time from version creation to version published)
   - Maintains an append-only strategy to the records of revisions
 
 #### The How - TBW
@@ -34,7 +33,15 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
   - Architecture
   - Components
   - Screenshots
-    
+
+
+#### The Next - TBW
+
+  - Compare revisions side-by-side 
+  - See indications if linked items have been deleted (internal links, datasources, images or documents)
+  - Set deletion and retention thresholds
+  - Revert revisions
+
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
