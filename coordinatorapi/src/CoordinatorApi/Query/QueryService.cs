@@ -22,20 +22,25 @@ public class QueryService(ElasticsearchClient client)
         var response = await client.SearchAsync<IndexChangeModel>(s => s
             .Indices(_indexName)
             .From(0)
-            .Size(100)
+            .Size(1000)
             .Query(q => q
-                .Bool(b => b
-                    .Filter(
+                .Bool(b =>
+                {
+                    b.Filter(
                         f => f.MatchPhrase(mp => mp
                             .Field("sitecoreInstance.keyword")
                             .Query(sitecoreInstanceId)
-                        ),
-                        f => f.Terms(t => t
+                        )
+                    );
+
+                    if (itemIds.Count > 0)
+                    {
+                        b.Filter(f => f.Terms(t => t
                             .Field("itemId.keyword")
                             .Terms(new TermsQueryField(itemIds))
-                        )
-                    )
-                )
+                        ));
+                    }
+                })
             )
             .Sort(ss => ss.Field(f => f.Timestamp, SortOrder.Desc))
         , cancellationToken);
