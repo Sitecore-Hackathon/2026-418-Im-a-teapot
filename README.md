@@ -102,5 +102,11 @@ With the second widget you are enabled to select specific workflow states and pr
 
 
 ## Comments
-If you'd like to make additional comments that is important for your module entry.
+The Marketplace app is conform to the requirements for being published as a Public app in accordance with:
+
+https://statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html
+
+Required policies: 
+  - [Privacy Policy](docs/policies/Privacy_Policy.md "Privacy Policy")
+  - [Data Processing Addendum](docs/policies/DPA.md "Data Processing Addendum")
 
