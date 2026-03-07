@@ -34,11 +34,10 @@ jobs:
                       ${{ runner.os }}-nuget
 
             - name: Build with dotnet
-              run: dotnet build --configuration Release
-              working-directory: ./coordinatorapi/src/CoordinatorApi
+              run: dotnet build --configuration Release ./coordinatorapi/src/CoordinatorApi/CoordinatorApi.csproj
 
             - name: dotnet publish
-              run: dotnet publish -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+              run: dotnet publish -c Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}} ./coordinatorapi/src/CoordinatorApi/CoordinatorApi.csproj
 
             - name: Upload artifact for deployment job
               uses: actions/upload-artifact@v4
