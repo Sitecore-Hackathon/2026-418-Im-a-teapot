@@ -7,7 +7,6 @@ public class SitecoreWebHookModel
     public ItemModel? Item { get; set; }
 
     public ItemChanges? Changes { get; set; }
-
 }
 
 public class ItemModel
@@ -29,12 +28,12 @@ public class ItemModel
     public ICollection<FieldDate>? UnversionedFields { get; set; }
 
     public ICollection<FieldDate>? VersionedFields { get; set; }
-
 }
 
 public class FieldDate
 {
     public Guid Id { get; set; }
+
     public string? Value { get; set; }
 }
 
@@ -43,6 +42,7 @@ public class ItemChanges
     public IEnumerable<FieldChange> FieldChanges { get; set; } = [];
 
     public bool IsUnversionedFieldChanged { get; set; }
+
     public bool IsSharedFieldChanged { get; set; }
 }
 
