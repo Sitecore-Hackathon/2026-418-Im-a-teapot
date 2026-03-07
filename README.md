@@ -98,7 +98,18 @@ With the second widget you are enabled to select specific workflow states and pr
 
 
 #### Page builder context panel
+Being in the context of a specific item, you are able to open the page builder context panel and see two different views for the Records of Revisions for that item. 
 
+In the first view you will have a timeline overview of how the item has moved through a workflow 
+followed by a table of all the different versions even if in the same workflow state, which is not possible in the default workflow engine, and see the exact field changes. There are filtering options providing you with only relevant revisions, for instance made by the same author. 
+
+![Page Builder Context Panel: Versions](docs/images/PageContextPanel-Versions.png?raw=true "Page Builder Context Panel: Versions")
+
+The second view pivots around the workflow states and can in the same way as the first be filtered, for instance to sepcific states. Again exact changes can be seen.
+
+![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png.png?raw=true "Page Builder Context Panel: Workflow - part 1")
+
+![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png.png?raw=true "Page Builder Context Panel: Workflow - part 2")
 
 
 ## Comments
@@ -107,6 +118,6 @@ The Marketplace app is conform to the requirements for being published as a Publ
 https://statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html
 
 Required policies: 
-  - [Privacy Policy](docs/policies/Privacy_Policy.md "Privacy Policy")
-  - [Data Processing Addendum](docs/policies/DPA.md "Data Processing Addendum")
+  - [Privacy Policy](docs/policies/Privacy_Policy.md)
+  - [Data Processing Addendum](docs/policies/DPA.md)
 
