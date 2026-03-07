@@ -110,9 +110,9 @@ followed by a table of all the different versions even if in the same workflow s
 
 The second view pivots around the workflow states and can in the same way as the first be filtered, for instance to sepcific states. Again exact changes can be seen.
 
-![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png.png?raw=true "Page Builder Context Panel: Workflow - part 1")
+![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png?raw=true "Page Builder Context Panel: Workflow - part 1")
 
-![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png.png?raw=true "Page Builder Context Panel: Workflow - part 2")
+![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png?raw=true "Page Builder Context Panel: Workflow - part 2")
 
 
 ## Comments
