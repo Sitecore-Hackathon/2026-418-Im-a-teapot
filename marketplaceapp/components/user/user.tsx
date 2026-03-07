@@ -31,9 +31,9 @@ const makeFallback = (user: User) => {
 };
 
 export const UserAvatar = ({ user }: { user: User | undefined | null; }) => (
-    <>{user && (<div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:size-5
+    <>{user && (<div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:size-7
             *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
-        <Avatar className="size-6 text-back">
+        <Avatar className="size-6 text-black">
             <AvatarFallback>{makeFallback(user)}</AvatarFallback>
         </Avatar>
     </div>)
