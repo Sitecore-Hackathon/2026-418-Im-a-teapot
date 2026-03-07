@@ -23,10 +23,9 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
 
   - Manage revisions even within the same version of a content piece
   - Track deletions in addition to creations and modifications
-  - Compare revisions side-by-side 
-  - Revert revisions
   - Sort, filter and export of records of revision
   - Inspect revisions in the context of an item
+  - See statistics on dashboard widgets (number of items published, fastest, slowest and average time from version creation to version published)
   - Maintains an append-only strategy to the records of revisions
 
 #### The How - TBW
@@ -34,7 +33,15 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
   - Architecture
   - Components
   - Screenshots
-    
+
+
+#### The Next - TBW
+
+  - Compare revisions side-by-side with color indication of changes
+  - See indications if linked items have been deleted (internal links, datasources, images or documents)
+  - Set deletion and retention thresholds
+  - Revert revisions
+
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
@@ -52,32 +59,41 @@ The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit
 _Remove this subsection if your entry does not have any prerequisites other than Sitecore_
 
 ## Installation instructions
-⟹ Write a short clear step-wise instruction on how to install your module.  
 
-> _A simple well-described installation process is required to win the Hackathon._  
-> Feel free to use any of the following tools/formats as part of the installation:
-> - Sitecore Package files
-> - Docker image builds
-> - Sitecore CLI
-> - msbuild
-> - npm / yarn
-> 
-> _Do not use_
-> - TDS
-> - Unicorn
- 
-for example:
+When approved by Sitecore: 
 
-1. Use the Sitecore Installation wizard to install the [package](#link-to-package)
-2. ...
-3. profit
+Follow the steps from https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app and select Apparatus CIA as the app you want to install.
+
 
 ### Configuration
-⟹ If there are any custom configuration that has to be set manually then remember to add all details here.
 
-_Remove this subsection if your entry does not require any configuration that is not fully covered in the installation instructions already_
+The app can be configured in Sitecore APP Studio: https://doc.sitecore.com/mp/en/developers/marketplace/configure-a-public-app.html 
+
 
 ## Usage instructions
+Apparatus CIA is implemented to be available from the following extension points:
+
+  - Fullscreen
+  - Dashboard Widget
+  - Page builder context panel
+
+### Fullscreen - table view
+In the table view it is possible to get an overview of all revisions. It is possible to sort and filter the table based on relevant attributes such as date intervals, user, item, and template.
+
+For each revision it can be seen exactly what fields has changed and what the value has changed from.
+
+
+### Dashboard Widget
+
+#### Publishing statistics
+Get an overview, with the first of Apparatus CIA's dashboard widgets, of how fast and intensive your content team is working. Identify peak periods and potential bottlenecks by looking at numbers of finalized and published content pieces as well as the time they have been in the making. Compare it to key metrics for instance for fastest and slowest production time as well as the average time to produce a content piece in any given time period.
+
+
+#### Workflow bottlenecks and overdue tasks
+With the second widget you are enabled to select specific workflow states and provide a threshold counted in days and hours and based on your input see all item versions that are still pending in that state. The widget allows you to click directly on any versoin you want to pick up the work on and have you redirected to the page builder with that version in focus ready to work. 
+
+
+
 ⟹ Provide documentation about your module, how do the users use your module, where are things located, what do the icons mean, are there any secret shortcuts etc.
 
 Include screenshots where necessary. You can add images to the `./images` folder and then link to them from your documentation:

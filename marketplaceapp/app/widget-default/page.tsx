@@ -420,10 +420,6 @@ function WidgetDefault() {
               <div className="font-mono text-lg">{stats.totalItems}</div>
             </div>
             <div>
-              <div className="text-sm text-gray-500">Success Rate</div>
-              <div className="font-mono text-lg">{stats.successRate}%</div>
-            </div>
-            <div>
               <div className="text-sm text-gray-500">Fastest</div>
               <div className="font-mono text-lg text-green-600">
                 {formatDuration(stats.fastest)}
