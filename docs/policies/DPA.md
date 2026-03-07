@@ -1,7 +1,7 @@
-# {{NAME}} – Data Processing Addendum (DPA)
-*Last updated: {{INSERT DATE}}*
+# Apparatus CIA – Data Processing Addendum (DPA)
+*Last updated: March 7 2026*
 
-This Data Processing Addendum ("DPA") is incorporated into and forms part of the agreement (the “Agreement”) between **asmblii A/S** ("Processor") and the **Customer** ("Controller") regarding the use of the Sitecore Marketplace App **{{NAME}}**.
+This Data Processing Addendum ("DPA") is incorporated into and forms part of the agreement (the “Agreement”) between **asmblii A/S** ("Processor") and the **Customer** ("Controller") regarding the use of the Sitecore Marketplace App **Apparatus CIA**.
 
 ## 1. Definitions
 - **Applicable Data Protection Law**: Means Regulation (EU) 2016/679 (EU GDPR); the Danish Data Protection Act and other Danish laws implementing or supplementing the GDPR; and, to the extent applicable to the Processing of Personal Data under this DPA, other data protection or privacy laws that apply to the parties or the Personal Data, including (where relevant) the UK GDPR and the Data Protection Act 2018.
@@ -9,7 +9,7 @@ This Data Processing Addendum ("DPA") is incorporated into and forms part of the
 - **Sub‑processor**: A third party engaged by Processor to process Personal Data on behalf of Controller.
 
 ## 2. Subject Matter, Nature, and Purpose
-{{NAME}} processes Personal Data to provide **audit trail and version tracking** of actions performed on Sitecore Items, including user actions (create, update and delete optionally publish and read) and associated metadata (timestamps, IP, role, user). Processing is limited to what is necessary to deliver the Application’s functionality, support security, governance, and compliance reporting, and provide diagnostics and maintenance.
+Apparatus CIA processes Personal Data to provide **audit trail and version tracking** of actions performed on Sitecore Items, including user actions (create, update and delete optionally publish and read) and associated metadata (timestamps, IP, role, user). Processing is limited to what is necessary to deliver the Application’s functionality, support security, governance, and compliance reporting, and provide diagnostics and maintenance.
 
 ## 3. Duration
 Processing continues for the term of the Agreement and ceases upon uninstallation/termination, subject to Section 12 (Return or Deletion).
@@ -28,7 +28,7 @@ Processor shall:
 2. Ensure personnel are subject to confidentiality obligations.  
 3. Implement and maintain **Technical & Organizational Measures (TOMs)** (Appendix 1).  
 4. Assist Controller with Data Subject requests, impact assessments, and consultations with Supervisory Authorities, as reasonably required on a Time and Material basis at the processeors default hourly rate.  
-5. Notify Controller **without undue delay** after becoming aware of a personal data breach affecting {{NAME}}.  
+5. Notify Controller **without undue delay** after becoming aware of a personal data breach affecting Apparatus CIA.  
 6. Make available information necessary to demonstrate compliance and reasonably cooperate with audits on a Time and Material basis at the processeors default hourly rate as per Section 10.
 
 ## 7. Controller Obligations
@@ -48,13 +48,13 @@ Microsoft acts as a Sub‑processor under the terms of the **Microsoft Data Prot
 The Processor remains responsible for ensuring that Microsoft provides sufficient guarantees to implement appropriate technical and organizational measures and will maintain oversight of Microsoft’s compliance as required under GDPR Article 28. The Controller may request an up‑to‑date copy of the Sub‑processor list at any time.
 
 ## 9. International Transfers
-{{NAME}} is designed to process audit data within the Controller’s Sitecore environment and store it at an external data storage. Any international transfers result from the Controller’s chosen hosting, integrations and external data storage. Transfers initiated by the Processor, when the data storage is controlled by the Processor in the non-free versions of the application, the transfer is implemented with a valid transfer mechanism as required by law.
+Apparatus CIA is designed to process audit data within the Controller’s Sitecore environment and store it at an external data storage. Any international transfers result from the Controller’s chosen hosting, integrations and external data storage. Transfers initiated by the Processor, when the data storage is controlled by the Processor in the non-free versions of the application, the transfer is implemented with a valid transfer mechanism as required by law.
 
 ## 10. Audit and Information Rights
 Upon reasonable prior notice, Processor will, on a Time and Material basis at the processeors default hourly rate, make available relevant documentation and cooperate with Controller’s good‑faith audits or assessments (including questionnaires) no more than annually, unless otherwise required by law or following a breach. Audits must minimize disruption, preserve confidentiality, and exclude unrelated facilities or data.
 
 ## 11. Security Incidents
-Processor will notify Controller without undue delay upon confirming a breach impacting Personal Data processed by {{NAME}}, including available details on nature, categories of data, likely consequences, and measures taken or proposed.
+Processor will notify Controller without undue delay upon confirming a breach impacting Personal Data processed by Apparatus CIA, including available details on nature, categories of data, likely consequences, and measures taken or proposed.
 
 ## 12. Return or Deletion
 Upon termination or upon Controller’s written request, Processor will cease processing and will (to the extent reasonably possible) delete or return Personal Data in its possession, if any. Data held within the Controller’s environment will be deleted or retained per the Controller’s policies.
@@ -69,12 +69,12 @@ Governing Law and Jurisdiction. This DPA, and any dispute or claim (including no
 
 ## Appendix 1 – Technical & Organizational Measures (TOMs)
 
-These TOMs align with Sitecore Marketplace legal expectations and industry best practices. They apply to the Processor’s operation of {{NAME}} and complement the Controller’s controls within Sitecore.
+These TOMs align with Sitecore Marketplace legal expectations and industry best practices. They apply to the Processor’s operation of Apparatus CIA and complement the Controller’s controls within Sitecore.
 
 ### A. Organization and Governance
 - Documented information security program, periodic risk assessments and policy reviews.  
 - Data protection training for personnel with access to Personal Data.  
-- Change management and release controls for {{NAME}}.
+- Change management and release controls for Apparatus CIA.
 
 ### B. Access Management
 - Role‑based access control; least privilege and separation of duties.  
@@ -103,7 +103,7 @@ These TOMs align with Sitecore Marketplace legal expectations and industry best 
 - Third‑party component inventory and update policy.
 
 ### H. Business Continuity & Disaster Recovery
-- Documented backup/restore procedures for {{NAME}} configuration where relevant.  
+- Documented backup/restore procedures for Apparatus CIA configuration where relevant.  
 
 ### I. Incident Response
 - Formal IR plan; roles and communication paths defined.  
