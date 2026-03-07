@@ -9,35 +9,19 @@
 You can find a very good reference to Github flavoured markdown reference in [this cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet). If you want something a bit more WYSIWYG for editing then could use [StackEdit](https://stackedit.io/app) which provides a more user friendly interface for generating the Markdown code. Those of you who are [VS Code fans](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) can edit/preview directly in that interface too.
 
 ## Team name
-418 I'm a teapot 
+⟹ Write the name of your Hackathon team here
 
 ## Category
-1.	Best Marketplace App for Sitecore AI - Build something publishable. Not just a demo.
+⟹ Write the name of the selected category
 
 ## Description
+⟹ Write a clear description of your hackathon entry.  
 
-### Apparatus CIA brings Control, Insight and Audit** to your Sitecore content lifecycle.
+  - Module Purpose
+  - What problem was solved (if any)
+    - How does this module solve it
 
-#### The Why
-Content operations move fast, not the least due to AI — and things get lost. Who changed what? When did it happen? Why did a piece of content stall being published? Governance and compliance demand clear answers.
-
-The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
-
-#### The What
-This is done by;
-  - managing revisions even within the same version of a content piece
-  - tracking deletions in addition to creations and modifications
-  - providing a side-by-side comparison of revisions
-  - supporting reverting revisions
-  - maintaining an append-only strategy to the records of revisions
-  - enabling sorting, filtering and export of records of revision
-
-#### The How - TBW
-
-  - Architecture
-  - Components
-  - Screenshots
-    
+_You can alternately paste a [link here](#docs) to a document within this repo containing the description._
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
