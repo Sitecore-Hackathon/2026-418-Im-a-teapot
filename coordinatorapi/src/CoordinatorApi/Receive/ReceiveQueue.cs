@@ -1,7 +1,7 @@
-﻿using System.Text;
+using CoordinatorApi.Shared;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Channels;
-using CoordinatorApi.Shared;
 
 namespace CoordinatorApi.Receive;
 

@@ -1,6 +1,6 @@
 ﻿
 
-namespace CoordinatorApi.ElasticsearchStorage;
+namespace CoordinatorApi.Shared;
 
 public class IndexChangeModel
 {

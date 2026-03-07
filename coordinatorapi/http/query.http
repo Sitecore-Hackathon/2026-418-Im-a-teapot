@@ -1,0 +1,5 @@
+GET https://localhost:7000/api/query/05e4eb24-ad77-4183-b273-5fa8a8f7e5e6/items?ids=111
+
+###
+
+GET https://localhost:7000/api/query/123/items?ids=111
