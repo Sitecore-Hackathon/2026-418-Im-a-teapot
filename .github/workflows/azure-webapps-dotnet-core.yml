@@ -2,7 +2,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: coordinatorapi
-  AZURE_WEBAPP_PACKAGE_PATH: './coordinatorapi/src/CoordinatorApi'
+  AZURE_WEBAPP_PACKAGE_PATH: '${{env.DOTNET_ROOT}}/myapp'
   DOTNET_VERSION: '10.0.x'
 
 on:
