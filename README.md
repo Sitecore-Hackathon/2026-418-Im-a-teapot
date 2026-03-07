@@ -1,50 +1,53 @@
 ![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+
 # Sitecore Hackathon 2026
 
 - MUST READ: **[Submission requirements](SUBMISSION_REQUIREMENTS.md)**
 - [Entry form template](ENTRYFORM.md)
-  
+
 ## Team name
-418 I'm a teapot 
+
+418 I'm a teapot
 
 ## Category
-1.	Best Marketplace App for Sitecore AI - Build something publishable. Not just a demo.
+
+1. Best Marketplace App for Sitecore AI - Build something publishable. Not just a demo.
 
 ## Description
 
-### Apparatus CIA brings Control, Insight and Audit** to your Sitecore content lifecycle.
+### Apparatus CIA brings Control, Insight and Audit\*\* to your Sitecore content lifecycle.
 
 #### The Why
+
 Content operations move fast, not the least due to AI — and things get lost. Who changed what? When did it happen? Why did a piece of content stall being published? Governance and compliance demand clear answers.
 
 The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
 
 #### The What
 
-  - Manage revisions even within the same version of a content piece
-  - Track deletions in addition to creations and modifications
-  - Sort, filter and export of records of revision
-  - Inspect revisions in the context of an item
-  - See statistics on dashboard widgets (number of items published, fastest, slowest and average time from version creation to version published)
-  - Maintains an append-only strategy to the records of revisions
+- Manage revisions even within the same version of a content piece
+- Track deletions in addition to creations and modifications
+- Sort, filter and export of records of revision
+- Inspect revisions in the context of an item
+- See statistics on dashboard widgets (number of items published, fastest, slowest and average time from version creation to version published)
+- Maintains an append-only strategy to the records of revisions
 
 #### The How - TBW
 
-  - Architecture
-  - Components
-  - Screenshots
-
+- Architecture
+- Components
+- Screenshots
 
 #### The Next - TBW
 
-  - Compare revisions side-by-side with color indication of changes
-  - See indications if linked items have been deleted (internal links, datasources, images or documents)
-  - Set deletion and retention thresholds
-  - Revert revisions
-
+- Compare revisions side-by-side with color indication of changes
+- See indications if linked items have been deleted (internal links, datasources, images or documents)
+- Set deletion and retention thresholds
+- Revert revisions
 
 ## Video link
-⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
+
+⟹ Provide a video highlighting your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
 
 ⟹ [Replace this Video link](#video-link)
 
@@ -60,47 +63,45 @@ _Remove this subsection if your entry does not have any prerequisites other than
 
 ## Installation instructions
 
-When approved by Sitecore: 
+When approved by Sitecore:
 
 Follow the steps from https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app and select Apparatus CIA as the app you want to install.
 
-
 ### Configuration
 
-The app can be configured in Sitecore APP Studio: https://doc.sitecore.com/mp/en/developers/marketplace/configure-a-public-app.html 
-
+The app can be configured in Sitecore APP Studio: https://doc.sitecore.com/mp/en/developers/marketplace/configure-a-public-app.html
 
 ## Usage instructions
+
 Apparatus CIA is implemented to be available from the following extension points:
 
-  - Fullscreen
-  - Dashboard Widget
-  - Page builder context panel
+- Fullscreen
+- Dashboard Widget
+- Page builder context panel
 
 ### Fullscreen - table view
+
 In the table view it is possible to get an overview of all revisions. It is possible to sort and filter the table based on relevant attributes such as date intervals, user, item, and template.
 
 For each revision it can be seen exactly what fields has changed and what the value has changed from.
 
-
 ### Dashboard Widget
 
 #### Publishing statistics
+
 Get an overview, with the first of Apparatus CIA's dashboard widgets, of how fast and intensive your content team is working. Identify peak periods and potential bottlenecks by looking at numbers of finalized and published content pieces as well as the time they have been in the making. Compare it to key metrics for instance for fastest and slowest production time as well as the average time to produce a content piece in any given time period.
 
-![Local Audit Trail: Publishing Performance - part 1](docs/images/localAuditTrail1.png?raw=true "Local Audit Trail: Publishing Performance - part 1")
-![Local Audit Trail: Publishing Performance - part 2](docs/images/localAuditTrail2.png?raw=true "Local Audit Trail: Publishing Performance - part 2")
+![Local Audit Trail: Publishing Performance - part 1](docs/images/localaudittrail1.png?raw=true "Local Audit Trail: Publishing Performance - part 1")
+![Local Audit Trail: Publishing Performance - part 2](docs/images/localaudittrail2.png?raw=true "Local Audit Trail: Publishing Performance - part 2")
 
 #### Workflow bottlenecks and overdue tasks
-With the second widget you are enabled to select specific workflow states and provide a threshold counted in days and hours and based on your input see all item versions that are still pending in that state. The widget allows you to click directly on any versoin you want to pick up the work on and have you redirected to the page builder with that version in focus ready to work. 
 
-![Workflow: Overdue Tasks](docs/images/WorkflowOverdueTasks.png?raw=true "Workflow: Overdue Tasks")
+With the second widget you are enabled to select specific workflow states and provide a threshold counted in days and hours and based on your input see all item versions that are still pending in that state. The widget allows you to click directly on any version you want to pick up the work on and have you redirected to the page builder with that version in focus ready to work.
 
+![Workflow: Overdue Tasks](docs/images/workflowOverdueTasks.png?raw=true "Workflow: Overdue Tasks")
 
 #### Page builder context panel
 
-
-
 ## Comments
-If you'd like to make additional comments that is important for your module entry.
 
+If you'd like to make additional comments that is important for your module entry.
