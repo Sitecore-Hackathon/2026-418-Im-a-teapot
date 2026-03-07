@@ -16,7 +16,7 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
 
     public async Task Add(string sitecoreInstanceId, SitecoreWebHookModel model, string? raw, CancellationToken cancellationToken)
     {
-        if (model == null) throw new ArgumentNullException(nameof(model));
+        ArgumentNullException.ThrowIfNull(model, nameof(model));
 
         var now = DateTime.UtcNow;
 
@@ -28,9 +28,8 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
         await EnsureIndex(_indexName);
 
         var fieldIds = model.Changes?.FieldChanges?.Select(x => x.FieldId).ToArray() ?? Array.Empty<Guid>();
-        var userName = model.Changes?.FieldChanges?.FirstOrDefault(x => x.FieldId == _fieldIdEditor)?.Value;
-        var changedFields = await Serialize(model.Changes?.FieldChanges?
-            .Select(x => new { field = x.FieldId, from = x.OriginalValue, to = x.Value }).ToArray(), cancellationToken);
+        var userName = GetUserName(model);
+        var changedFields = await Serialize(model.Changes?.FieldChanges?.Select(x => new { field = x.FieldId, from = x.OriginalValue, to = x.Value }).ToArray(), cancellationToken);
         var fields = new IndexChangeModel
         {
             Timestamp = now,
@@ -57,6 +56,23 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
 
             throw new Exception("Unknown communication error while writing data.");
         }
+    }
+
+    private static string? GetUserName(SitecoreWebHookModel model)
+    {
+        var userName = model.Changes?.FieldChanges?.FirstOrDefault(x => x.FieldId == _fieldIdEditor)?.Value;
+
+        if (string.IsNullOrEmpty(userName))
+        {
+            userName = model.Item?.VersionedFields?.FirstOrDefault(x => x.Id == _fieldIdEditor)?.Value;
+        }
+
+        if (string.IsNullOrEmpty(userName))
+        {
+            userName = model.Item?.UnversionedFields?.FirstOrDefault(x => x.Id == _fieldIdEditor)?.Value;
+        }
+
+        return userName;
     }
 
     private static async Task<string?> Serialize<T>(T model, CancellationToken cancellationToken)
