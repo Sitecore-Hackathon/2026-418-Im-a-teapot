@@ -1,6 +1,11 @@
 ; Top-most EditorConfig file
 root = true
 
+[*.tsx?]
+indent_style = space
+indent_size = 2
+trim_trailing_spaces = true
+
 ; 4-column space indentation
 [*]
 indent_style = space

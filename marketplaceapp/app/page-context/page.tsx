@@ -1,4 +1,6 @@
 "use client";
+
+import { MarketplaceProvider } from "@/components/providers/marketplace";
 import {
     Card,
     CardDescription,
@@ -10,34 +12,35 @@ import { TimelineVersions, dummyVersionsData } from "@/components/timeline-versi
 
 function PageContext() {
 
-    return (<div>
-        <Tabs defaultValue="versions" className="">
-            <TabsList>
-                <TabsTrigger value="versions">Versions</TabsTrigger>
-                <TabsTrigger value="workflow">Workflows</TabsTrigger>
-            </TabsList>
-            <TabsContent value="versions">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Versions</CardTitle>
-                        <CardDescription>
-                            <TimelineVersions versions={dummyVersionsData} />
-                        </CardDescription>
-                    </CardHeader>
-                </Card>
-            </TabsContent>
-            <TabsContent value="workflow">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Workflows</CardTitle>
-                        <CardDescription>
-                            Similar with workflows....
-                        </CardDescription>
-                    </CardHeader>
-                </Card>
-            </TabsContent>
-        </Tabs>
-    </div>
+    return (
+        <MarketplaceProvider>
+            <Tabs defaultValue="versions" className="">
+                <TabsList>
+                    <TabsTrigger value="versions">Versions</TabsTrigger>
+                    <TabsTrigger value="workflow">Workflows</TabsTrigger>
+                </TabsList>
+                <TabsContent value="versions">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Versions</CardTitle>
+                            <CardDescription>
+                                <TimelineVersions versions={dummyVersionsData} />
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                </TabsContent>
+                <TabsContent value="workflow">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Workflows</CardTitle>
+                            <CardDescription>
+                                Similar with workflows....
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                </TabsContent>
+            </Tabs>
+        </MarketplaceProvider>
     );
 }
 

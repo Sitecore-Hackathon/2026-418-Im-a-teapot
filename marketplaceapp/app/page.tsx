@@ -1,15 +1,13 @@
 "use client";
 
-import { InitializationPage } from "@/components/initialization/InitializationPage";
-
-function Standalone() {
-  return (<>
-
-    <InitializationPage />
-    <div className="container mx-auto p-6 space-y-8 max-w-3xl">
-
-    </div>
-  </>);
+function Frontpage() {
+    return (<>
+        <h1>Audit tool</h1>
+        <p>
+            This is the awesome content tool. You need to use it from SitecoreAI but maybe here will be some examples...
+        </p>
+    </>
+    );
 }
 
-export default Standalone;
+export default Frontpage;

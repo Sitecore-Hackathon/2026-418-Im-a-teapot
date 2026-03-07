@@ -1,9 +1,14 @@
 "use client";
 
+import { MarketplaceProvider } from "@/components/providers/marketplace";
+
 function WidgetDefault() {
-    return (<div>
-        Default
-    </div>
+    return (
+        <MarketplaceProvider>
+            <div>
+                Default
+            </div>
+        </MarketplaceProvider>
     );
 }
 
