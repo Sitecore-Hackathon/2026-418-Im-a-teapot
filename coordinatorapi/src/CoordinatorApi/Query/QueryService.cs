@@ -1,6 +1,8 @@
 using CoordinatorApi.Shared;
 using Elastic.Clients.Elasticsearch;
 using Elastic.Clients.Elasticsearch.QueryDsl;
+using System.Text;
+using System.Text.Json;
 
 namespace CoordinatorApi.Query;
 
@@ -8,7 +10,7 @@ public class QueryService(ElasticsearchClient client)
 {
     private string _indexName => $"audit-{DateTime.UtcNow:yyyy.MM}";
 
-    public async Task<IEnumerable<IndexChangeModel>> GetItems(string sitecoreInstanceId, ItemQueryModel ids, CancellationToken cancellationToken)
+    public async Task<ItemsQueryResult> GetItems(string sitecoreInstanceId, ItemQueryModel ids, CancellationToken cancellationToken)
     {
         var itemIds = new List<FieldValue>();
 
@@ -27,7 +29,8 @@ public class QueryService(ElasticsearchClient client)
                         f => f.MatchPhrase(mp => mp
                             .Field("sitecoreInstance.keyword")
                             .Query(sitecoreInstanceId)
-                        ), f => f.Terms(t => t
+                        ),
+                        f => f.Terms(t => t
                             .Field("itemId.keyword")
                             .Terms(new TermsQueryField(itemIds))
                         )
@@ -47,6 +50,34 @@ public class QueryService(ElasticsearchClient client)
             throw new Exception("Communication error while querying data.");
         }
 
-        return response.Documents;
+
+
+        var results = new ItemsQueryResult();
+
+        foreach (var document in response.Documents)
+        {
+            using var stream = new MemoryStream(Encoding.UTF8.GetBytes(document.Raw));
+            var model = await JsonSerializer.DeserializeAsync<SitecoreWebHookModel>(stream, cancellationToken: cancellationToken);
+
+            if (model == null)
+            {
+                continue;
+            }
+
+            results.Items.Add(new ItemResult(
+                document.User,
+                document.WorkflowId,
+                document.WorkflowStateId,
+                model));
+        }
+
+        return results;
     }
+
+    public class ItemsQueryResult
+    {
+        public IList<ItemResult> Items { get; set; } = [];
+    }
+
+    public record ItemResult(string? User, string? WorkflowId, string? WorkflowStateId, SitecoreWebHookModel WebHookData);
 }

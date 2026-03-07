@@ -25,4 +25,8 @@ public class IndexChangeModel
     public required string SitecoreInstance { get; set; }
 
     public string? ChangedFields { get; set; }
+
+    public string? WorkflowId { get; set; }
+
+    public string? WorkflowStateId { get; set; }
 }
