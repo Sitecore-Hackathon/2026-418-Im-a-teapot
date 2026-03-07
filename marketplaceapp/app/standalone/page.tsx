@@ -15,6 +15,7 @@ function Standalone() {
           showFieldChanges={true}
           debounceTime={500}
           emptyStateMessage="No actions found matching your criteria"
+          openFiltersByDefault={true}
         />
       </div>
     </MarketplaceProvider>

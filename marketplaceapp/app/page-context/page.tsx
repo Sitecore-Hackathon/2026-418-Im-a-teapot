@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TimelineVersions, dummyVersionsData } from "@/components/timeline-versions/timeline-version";
+import { FilterTable } from "@/components/filter-table";
+import { fetchDataWithFilters } from "@/components/filter-table/test-data";
 
 function PageContext() {
 
@@ -40,6 +42,13 @@ function PageContext() {
                     </Card>
                 </TabsContent>
             </Tabs>
+            <FilterTable
+                data={fetchDataWithFilters}
+                showFieldChanges={true}
+                debounceTime={500}
+                emptyStateMessage="No actions found matching your criteria"
+                openFiltersByDefault={false}
+            />
         </MarketplaceProvider>
     );
 }

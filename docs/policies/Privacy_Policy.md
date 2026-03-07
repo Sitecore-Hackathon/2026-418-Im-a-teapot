@@ -1,14 +1,14 @@
-# {{NAME}} – Privacy Policy
-*Last updated: {{INSERT DATE}}*
+# Apparatus CIA – Privacy Policy
+*Last updated: March 7 2026*
 
 ## 1. Introduction
-{{NAME}} (the “Application”, “we”, “us”, or “our”) is a Sitecore Marketplace App that enables enhanced auditing and version tracking of actions performed on Sitecore Items within your Sitecore environment. This Privacy Policy explains how we collect, use, disclose, and protect personal data processed via the Application. By installing or using {{NAME}}, you acknowledge that you have read and understood this Privacy Policy.
+Apparatus CIA (the “Application”, “we”, “us”, or “our”) is a Sitecore Marketplace App that enables enhanced auditing and version tracking of actions performed on Sitecore Items within your Sitecore environment. This Privacy Policy explains how we collect, use, disclose, and protect personal data processed via the Application. By installing or using Apparatus CIA, you acknowledge that you have read and understood this Privacy Policy.
 
 > **Controller/Processor context**  
-In the typical deployment, the **Customer** controls the Sitecore environment and acts as the **data controller**. {{NAME}} is operated to process data **on the Customer’s behalf**, and asmblii A/S acts as a **data processor**.
+In the typical deployment, the **Customer** controls the Sitecore environment and acts as the **data controller**. Apparatus CIA is operated to process data **on the Customer’s behalf**, and asmblii A/S acts as a **data processor**.
 
 ## 2. Data We Collect
-{{NAME}} records data necessary to maintain a comprehensive audit trail:
+Apparatus CIA records data necessary to maintain a comprehensive audit trail:
 
 ### 2.1 User Personal Data
 - Name  
@@ -39,10 +39,10 @@ Depending on the Customer’s configuration and policies, processing is supporte
 - **Art. 6(1)(f) GDPR** – legitimate interests in secure and compliant operations
 
 ## 5. Data Location, Storage, and Retention
-- {{NAME}} stores audit data within a connected storage configured by the Customer if using the free version or to a connected storage in the **EU regsion**, unless explicitly agreed differently with the Customer, configured by asmblii A/S.  
+- Apparatus CIA stores audit data within a connected storage configured by the Customer if using the free version or to a connected storage in the **EU regsion**, unless explicitly agreed differently with the Customer, configured by asmblii A/S.  
 - We do **not** transfer audit data to our own servers for processing, unless separately agreed in writing.  
 - We do use Azure for the connected storage provided through asmblii A/S, having Microsoft as sub-processor as outlined in the DPA. 
-- **Retention** is governed by the Customer’s policies; {{NAME}} supports configurable retention and purge routines.
+- **Retention** is governed by the Customer’s policies; Apparatus CIA supports configurable retention and purge routines.
 
 ## 6. Disclosures and Transfers
 We do not disclose personal data to third parties except:  
@@ -54,10 +54,10 @@ International transfers, if any, arise from the Customer’s chosen hosting/infr
 We apply appropriate technical and organizational measures as described in the **Technical & Organizational Measures (TOMs)** below. Customers are responsible for securing the hosting platform and Sitecore access controls.
 
 ## 8. Data Subject Rights
-{{NAME}} stores data in the Customer’s environment. Requests to exercise rights (access, rectification, erasure, restriction, objection) should be directed to the **Customer** as controller. We will assist the Customer where feasible and lawful.
+Apparatus CIA stores data in the Customer’s environment. Requests to exercise rights (access, rectification, erasure, restriction, objection) should be directed to the **Customer** as controller. We will assist the Customer where feasible and lawful.
 
 ## 9. Children’s Data
-{{NAME}} is not intended for use by children and does not knowingly process children’s personal data.
+Apparatus CIA is not intended for use by children and does not knowingly process children’s personal data.
 
 ## 10. Changes to this Privacy Policy
 We may update this Privacy Policy. Material changes will be indicated by updating the “Last updated” date above. Continued use constitutes acceptance of any updates.
@@ -72,12 +72,12 @@ For privacy inquiries or DPA requests, contact:
 
 ## Technical & Organizational Measures (TOMs)
 
-The following TOMs are designed to align with Sitecore Marketplace legal expectations and enterprise security norms. These TOMs apply to {{NAME}} when operated by or on behalf of [Your Company Name] and complement measures the Customer implements in its own Sitecore environment.
+The following TOMs are designed to align with Sitecore Marketplace legal expectations and enterprise security norms. These TOMs apply to Apparatus CIA when operated by or on behalf of [Your Company Name] and complement measures the Customer implements in its own Sitecore environment.
 
 ### A. Organization and Governance
 - Documented information security program, periodic risk assessments and policy reviews.  
 - Data protection training for personnel with access to Personal Data.  
-- Change management and release controls for {{NAME}}.
+- Change management and release controls for Apparatus CIA.
 
 ### B. Access Management
 - Role‑based access control; least privilege and separation of duties.  
@@ -106,7 +106,7 @@ The following TOMs are designed to align with Sitecore Marketplace legal expecta
 - Third‑party component inventory and update policy.
 
 ### H. Business Continuity & Disaster Recovery
-- Documented backup/restore procedures for {{NAME}} configuration where relevant.  
+- Documented backup/restore procedures for Apparatus CIA configuration where relevant.  
 
 ### I. Incident Response
 - Formal IR plan; roles and communication paths defined.  
