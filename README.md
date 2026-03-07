@@ -65,11 +65,11 @@ _Remove this subsection if your entry does not have any prerequisites other than
 
 When approved by Sitecore:
 
-Follow the steps from https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app and select Apparatus CIA as the app you want to install.
+Follow the steps from <https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app> and select Apparatus CIA as the app you want to install.
 
 ### Configuration
 
-The app can be configured in Sitecore APP Studio: https://doc.sitecore.com/mp/en/developers/marketplace/configure-a-public-app.html
+The app can be configured in Sitecore App Studio: <https://doc.sitecore.com/mp/en/developers/marketplace/configure-a-public-app.html>
 
 ## Usage instructions
 
