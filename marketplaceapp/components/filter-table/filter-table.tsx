@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState, useCallback, useEffect, Fragment } from "react"
+import { useState, useCallback, useEffect, Fragment, ReactNode } from "react";
 import {
   Table,
   TableHeader,
@@ -8,22 +8,24 @@ import {
   TableHead,
   TableRow,
   TableCell,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from "@/components/ui/select"
-import { Icon } from "@/lib/icon"
-import { mdiChevronDown, mdiChevronRight, mdiClockOutline } from "@mdi/js"
-import { cn } from "@/lib/utils"
-import { DateRangeFilter } from "./date-range-filter"
-import type { ActionEntry, FieldChange } from "./test-data"
+} from "@/components/ui/select";
+import { Icon } from "@/lib/icon";
+import { mdiChevronDown, mdiChevronRight, mdiChevronUp, mdiClockOutline } from "@mdi/js";
+import { cn } from "@/lib/utils";
+import { DateRangeFilter } from "./date-range-filter";
+import type { ActionEntry, FieldChange } from "./test-data";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
+
 
 export function FilterTable({
   data,
@@ -33,18 +35,20 @@ export function FilterTable({
   onRowExpand,
   onFilterChange,
   debounceTime = 300,
+  openFiltersByDefault = true
 }: {
   data:
-    | ActionEntry[]
-    | ((
-        filters: Record<string, unknown>
-      ) => ActionEntry[] | Promise<ActionEntry[]>)
-  showFieldChanges?: boolean
-  emptyStateMessage?: string
-  className?: string
-  onRowExpand?: (entry: ActionEntry, isExpanded: boolean) => void
-  onFilterChange?: (filters: Record<string, unknown>) => void
-  debounceTime?: number
+  | ActionEntry[]
+  | ((
+    filters: Record<string, unknown>
+  ) => ActionEntry[] | Promise<ActionEntry[]>);
+  showFieldChanges?: boolean;
+  emptyStateMessage?: string;
+  className?: string;
+  onRowExpand?: (entry: ActionEntry, isExpanded: boolean) => void;
+  onFilterChange?: (filters: Record<string, unknown>) => void;
+  debounceTime?: number;
+  openFiltersByDefault?: boolean;
 }) {
   const [state, setState] = useState({
     expandedRows: new Set<string>(),
@@ -52,133 +56,135 @@ export function FilterTable({
     filteredData: [] as ActionEntry[],
     isLoading: true,
     error: null as Error | null,
-  })
+  });
+
+  const [isOpen, setIsOpen] = useState<boolean>(openFiltersByDefault ?? true);
 
   // Fetch data from API with current filters
   const fetchData = useCallback(
     async (currentFilters: Record<string, unknown> = {}) => {
       try {
-        setState((prev) => ({ ...prev, isLoading: true, error: null }))
+        setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
-        let dataResult
+        let dataResult;
         if (typeof data === "function") {
           dataResult = await (
             data as (
               filters: Record<string, unknown>
             ) => ActionEntry[] | Promise<ActionEntry[]>
-          )(currentFilters)
+          )(currentFilters);
         } else {
-          dataResult = data
+          dataResult = data;
         }
 
-        const entries = Array.isArray(dataResult) ? dataResult : []
+        const entries = Array.isArray(dataResult) ? dataResult : [];
         setState((prev) => ({
           ...prev,
           filteredData: entries,
           isLoading: false,
-        }))
+        }));
       } catch (error) {
         setState((prev) => ({
           ...prev,
           error:
             error instanceof Error ? error : new Error("Failed to load data"),
           isLoading: false,
-        }))
+        }));
       }
     },
     [data]
-  )
+  );
 
   // Handle date range filter changes (immediate API call)
   const handleDateRangeChange = useCallback(
-    (range: { after?: Date; before?: Date }) => {
-      const newFilters = { ...state.filterValues, dateRange: range }
-      setState((prev) => ({ ...prev, filterValues: newFilters }))
+    (range: { after?: Date; before?: Date; }) => {
+      const newFilters = { ...state.filterValues, dateRange: range };
+      setState((prev) => ({ ...prev, filterValues: newFilters }));
 
       if (onFilterChange) {
-        onFilterChange(newFilters)
+        onFilterChange(newFilters);
       }
 
       // Immediate fetch for date changes
-      fetchData(newFilters)
+      fetchData(newFilters);
     },
     [state.filterValues, onFilterChange, fetchData]
-  )
+  );
 
   // Handle other filter changes (debounced API call)
   const handleFilterChange = useCallback(
     (key: string, value: unknown) => {
-      const newFilters = { ...state.filterValues, [key]: value }
+      const newFilters = { ...state.filterValues, [key]: value };
 
       // Check if filters actually changed
       const filtersChanged =
-        JSON.stringify(state.filterValues) !== JSON.stringify(newFilters)
+        JSON.stringify(state.filterValues) !== JSON.stringify(newFilters);
       if (!filtersChanged) {
-        return
+        return;
       }
 
-      setState((prev) => ({ ...prev, filterValues: newFilters }))
+      setState((prev) => ({ ...prev, filterValues: newFilters }));
 
       if (onFilterChange) {
-        onFilterChange(newFilters)
+        onFilterChange(newFilters);
       }
 
       // Debounced fetch for other filters
       const timer = setTimeout(() => {
-        fetchData(newFilters)
-      }, debounceTime)
+        fetchData(newFilters);
+      }, debounceTime);
 
-      return () => clearTimeout(timer)
+      return () => clearTimeout(timer);
     },
     [state.filterValues, onFilterChange, debounceTime, fetchData]
-  )
+  );
 
   const handleClearAll = useCallback(() => {
-    setState((prev) => ({ ...prev, filterValues: {} }))
+    setState((prev) => ({ ...prev, filterValues: {} }));
     if (onFilterChange) {
-      onFilterChange({})
+      onFilterChange({});
     }
-  }, [onFilterChange])
+  }, [onFilterChange]);
 
   const toggleRowExpansion = useCallback(
     (entryId: string) => {
-      const newExpandedRows = new Set(state.expandedRows)
+      const newExpandedRows = new Set(state.expandedRows);
       if (newExpandedRows.has(entryId)) {
-        newExpandedRows.delete(entryId)
+        newExpandedRows.delete(entryId);
       } else {
-        newExpandedRows.add(entryId)
+        newExpandedRows.add(entryId);
       }
 
-      setState((prev) => ({ ...prev, expandedRows: newExpandedRows }))
+      setState((prev) => ({ ...prev, expandedRows: newExpandedRows }));
 
-      const entry = state.filteredData.find((e) => e.id === entryId)
+      const entry = state.filteredData.find((e) => e.id === entryId);
       if (entry && onRowExpand) {
-        onRowExpand(entry, !state.expandedRows.has(entryId))
+        onRowExpand(entry, !state.expandedRows.has(entryId));
       }
     },
     [state.expandedRows, state.filteredData, onRowExpand]
-  )
+  );
 
   const formatDate = useCallback((date: Date | string) => {
-    if (!date) return "-"
+    if (!date) return "-";
 
-    const dateObj = typeof date === "string" ? new Date(date) : date
-    if (isNaN(dateObj.getTime())) return "Invalid date"
+    const dateObj = typeof date === "string" ? new Date(date) : date;
+    if (isNaN(dateObj.getTime())) return "Invalid date";
 
-    return dateObj.toLocaleString()
-  }, [])
+    return dateObj.toLocaleString();
+  }, []);
 
   const formatFieldValue = (value: unknown): string => {
-    if (value === null) return "null"
-    if (value === undefined) return "undefined"
-    if (typeof value === "boolean") return value ? "true" : "false"
-    return String(value)
-  }
+    if (value === null) return "null";
+    if (value === undefined) return "undefined";
+    if (typeof value === "boolean") return value ? "true" : "false";
+    return String(value);
+  };
 
   // Initialize data on mount
   useEffect(() => {
-    fetchData()
-  }, [fetchData])
+    fetchData();
+  }, [fetchData]);
 
   if (state.isLoading) {
     return (
@@ -188,7 +194,7 @@ export function FilterTable({
           <span>Loading actions...</span>
         </div>
       </div>
-    )
+    );
   }
 
   if (state.error) {
@@ -196,7 +202,7 @@ export function FilterTable({
       <div className={cn("py-8 text-center text-destructive", className)}>
         <p>Error loading actions: {state.error.message}</p>
       </div>
-    )
+    );
   }
 
   if (state.filteredData.length === 0) {
@@ -204,76 +210,91 @@ export function FilterTable({
       <div className={cn("py-8 text-center text-muted-foreground", className)}>
         <p>{emptyStateMessage}</p>
       </div>
-    )
+    );
   }
 
   // Extract unique values for filter options
   const users = Array.from(
     new Set(state.filteredData.map((entry) => entry.user))
-  )
+  );
   const actions = Array.from(
     new Set(state.filteredData.map((entry) => entry.actionPerformed))
-  )
+  );
 
   return (
     <div className={cn("space-y-4", className)}>
       {/* Filter Controls */}
       <div className="border-b pb-4">
-        <div className="flex flex-wrap items-center gap-4">
-          {/* Date Range Filter */}
-          <DateRangeFilter
-            value={
-              state.filterValues.dateRange as { after?: Date; before?: Date }
-            }
-            onChange={handleDateRangeChange}
-          />
-
-          {/* User Filter */}
-          <Select
-            value={(state.filterValues.user as string) || ""}
-            onValueChange={(value) => handleFilterChange("user", value)}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Filter by user" />
-            </SelectTrigger>
-            <SelectContent>
-              {users.map((user) => (
-                <SelectItem key={user} value={user}>
-                  {user}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Action Filter */}
-          <Select
-            value={(state.filterValues.action as string) || ""}
-            onValueChange={(value) => handleFilterChange("action", value)}
-          >
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Filter by action" />
-            </SelectTrigger>
-            <SelectContent>
-              {actions.map((action) => (
-                <SelectItem key={action} value={action}>
-                  {action}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          {/* Clear All Button */}
-          {Object.keys(state.filterValues).length > 0 && (
+        <Collapsible open={isOpen} onOpenChange={setIsOpen}>
+          <CollapsibleTrigger asChild>
             <Button
-              onClick={handleClearAll}
-              variant="link"
-              size="sm"
-              className="w-fit"
+              variant="ghost"
+              colorScheme={"neutral"}
+              aria-label="Toggle filters"
             >
-              Clear all filters
+              <Icon path={isOpen ? mdiChevronUp : mdiChevronDown} />
+              Filters
             </Button>
-          )}
-        </div>
+
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="flex flex-wrap items-center gap-4">
+              {/* Date Range Filter */}
+              <DateRangeFilter
+                value={
+                  state.filterValues.dateRange as { after?: Date; before?: Date; }
+                }
+                onChange={handleDateRangeChange}
+              />
+
+              {/* User Filter */}
+              <Select
+                value={(state.filterValues.user as string) || ""}
+                onValueChange={(value) => handleFilterChange("user", value)}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Filter by user" />
+                </SelectTrigger>
+                <SelectContent>
+                  {users.map((user) => (
+                    <SelectItem key={user} value={user}>
+                      {user}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Action Filter */}
+              <Select
+                value={(state.filterValues.action as string) || ""}
+                onValueChange={(value) => handleFilterChange("action", value)}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Filter by action" />
+                </SelectTrigger>
+                <SelectContent>
+                  {actions.map((action) => (
+                    <SelectItem key={action} value={action}>
+                      {action}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Clear All Button */}
+              {Object.keys(state.filterValues).length > 0 && (
+                <Button
+                  onClick={handleClearAll}
+                  variant="link"
+                  size="sm"
+                  className="w-fit"
+                >
+                  Clear all filters
+                </Button>
+              )}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
 
       {/* Main Table */}
@@ -364,5 +385,5 @@ export function FilterTable({
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
