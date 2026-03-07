@@ -1,4 +1,4 @@
-name: Build and deploy ASP.NET Core app to an Azure Web App
+name: Build and deploy
 
 env:
     AZURE_WEBAPP_NAME: coordinatorapi

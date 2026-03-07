@@ -12,7 +12,7 @@ import { readWebhookQuery, type WebhookItem } from "./webhook-queries";
 async function fetchItem(client: ClientSDK, xmCloudResourceAccess: ApplicationResourceContext): Promise<[WebhookItem, string?]> {
     const sitecoreContextId = xmCloudResourceAccess.context.preview;
 
-    const response: any = await client.query("xmc.authoring.graphql", {
+    const response: any = await client.mutate("xmc.authoring.graphql", {
         params: {
             query: { sitecoreContextId },
             body: {

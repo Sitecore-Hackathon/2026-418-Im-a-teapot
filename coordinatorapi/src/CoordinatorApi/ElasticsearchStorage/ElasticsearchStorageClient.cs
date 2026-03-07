@@ -9,6 +9,8 @@ namespace CoordinatorApi.ElasticsearchStorage;
 public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageClient
 {
     private static readonly Guid _fieldIdEditor = new Guid("badd9cf9-53e0-4d0c-bcc0-2d784c282f6a");
+    private static readonly Guid _fieldIdWorkflow = new Guid("{A4F985D9-98B3-4B52-AAAF-4344F6E747C6}");
+    private static readonly Guid _fieldIdWorkflowState = new Guid("{3E431DE1-525E-47A3-B6B0-1CCBEC3A8C98}");
 
     private string _indexName => $"audit-{DateTime.UtcNow:yyyy.MM}";
 
@@ -26,7 +28,6 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
         await EnsureIndex(_indexName);
 
         var fieldIds = model.Changes?.FieldChanges?.Select(x => x.FieldId).ToArray() ?? Array.Empty<Guid>();
-        var userName = GetUserName(model);
         var changedFields = await Serialize(model.Changes?.FieldChanges?.Select(x => new { field = x.FieldId, from = x.OriginalValue, to = x.Value }).ToArray(), cancellationToken);
         var fields = new IndexChangeModel
         {
@@ -40,7 +41,9 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
             SitecoreInstance = sitecoreInstanceId,
             FieldIds = fieldIds,
             ChangedFields = changedFields,
-            User = userName,
+            User = GetUserName(model),
+            WorkflowId = model.Item?.SharedFields?.FirstOrDefault(x => x.Id == _fieldIdWorkflow)?.Value,
+            WorkflowStateId = model.Item?.VersionedFields?.FirstOrDefault(x => x.Id == _fieldIdWorkflowState)?.Value
         };
 
         var response = await client.CreateAsync(fields, opt => opt.Index(_indexName).Id(Guid.NewGuid()));

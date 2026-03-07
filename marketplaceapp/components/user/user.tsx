@@ -30,11 +30,13 @@ const makeFallback = (user: User) => {
     return getNameParts().map(x => x.charAt(0).toUpperCase()).join();
 };
 
-export const UserAvatar = ({ user }: { user: User | undefined | null }) => (
-    <>{user && (
-        <Avatar className="size-5">
+export const UserAvatar = ({ user }: { user: User | undefined | null; }) => (
+    <>{user && (<div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:size-7
+            *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
+        <Avatar className="size-6 text-black">
             <AvatarFallback>{makeFallback(user)}</AvatarFallback>
-        </Avatar>)
+        </Avatar>
+    </div>)
     }</>
 );
 
