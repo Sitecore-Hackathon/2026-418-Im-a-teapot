@@ -1,9 +1,11 @@
 using CoordinatorApi.ElasticsearchStorage;
+using CoordinatorApi.Query;
 using CoordinatorApi.Receive;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddReceive();
+builder.AddQuery();
 builder.AddElasticsearchStorage();
 
 var app = builder.Build();
@@ -14,6 +16,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.MapReceive();
+app.MapQuery();
 app.Map("/", () => Results.Text("Hello!"));
 
 app.Run();

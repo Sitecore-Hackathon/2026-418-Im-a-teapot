@@ -54,7 +54,7 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
                 throw ex;
             }
 
-            throw new Exception("Unknown communication error while writing data.");
+            throw new Exception("Communication error while writing data.");
         }
     }
 
@@ -107,7 +107,7 @@ public class ElasticsearchStorageClient(ElasticsearchClient client) : IStorageCl
                     throw ex;
                 }
 
-                throw new Exception("Unknown communication error while ensuring index.");
+                throw new Exception("Communication error while ensuring index.");
             }
         }
     }
