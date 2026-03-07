@@ -59,7 +59,7 @@ export function generateDummyData(): PublishingMetric[] {
         version: 1,
         createdDate: createdDate.toISOString(),
         publishedDate: publishedDate.toISOString(),
-        timeToPublishMs: publishDelayHours * 60 * 60 * 1000,
+        timeToPublish: publishDelayHours * 60 * 60 * 1000,
         publishedBy: user,
       })
     }
@@ -90,7 +90,7 @@ export function processChartData(metrics: PublishingMetric[]): {
   Array.from(byDate.entries())
     .sort((a, b) => a[0].localeCompare(b[0]))
     .forEach(([date, items]) => {
-      const times = items.map((item) => item.timeToPublishMs)
+      const times = items.map((item) => item.timeToPublish)
       allTimes.push(...times)
 
       chartData.push({
