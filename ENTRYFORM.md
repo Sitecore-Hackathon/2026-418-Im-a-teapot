@@ -15,13 +15,29 @@ You can find a very good reference to Github flavoured markdown reference in [th
 1.	Best Marketplace App for Sitecore AI - Build something publishable. Not just a demo.
 
 ## Description
-⟹ Write a clear description of your hackathon entry.  
 
-  - Module Purpose
-  - What problem was solved (if any)
-    - How does this module solve it
+### Apparatus CIA brings Control, Insight and Audit** to your Sitecore content lifecycle.
 
-_You can alternately paste a [link here](#docs) to a document within this repo containing the description._
+#### The Why
+Content operations move fast, not the least due to AI — and things get lost. Who changed what? When did it happen? Why did a piece of content stall being published? Governance and compliance demand clear answers.
+
+The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
+
+#### The What
+This is done by;
+  - managing revisions even within the same version of a content piece
+  - tracking deletions in addition to creations and modifications
+  - providing a side-by-side comparison of revisions
+  - supporting reverting revisions
+  - maintaining an append-only strategy to the records of revisions
+  - enabling sorting, filtering and export of records of revision
+
+#### The How - TBW
+
+  - Architecture
+  - Components
+  - Screenshots
+    
 
 ## Video link
 ⟹ Provide a video highlighing your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
