@@ -1,0 +1,5 @@
+POST https://localhost:7000/api/receive/hook/123
+
+{
+    "EventName": "hej"
+}

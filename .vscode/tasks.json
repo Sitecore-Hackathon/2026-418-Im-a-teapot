@@ -1,0 +1,108 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "dotnet: build",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "dotnet",
+            "args": [
+                "build",
+                "-c",
+                "Debug",
+                "${workspaceFolder}/coordinatorapi"
+            ],
+            "problemMatcher": [
+                "$msCompile"
+            ],
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "dotnet: run all tests",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "test",
+                "-c",
+                "Debug"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "dotnet: watch",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "watch",
+                "-c",
+                "Debug",
+                "--project",
+                "${workspaceFolder}/coordinatorapi/src/CoordinatorApi"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "dotnet: run",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "run",
+                "-c",
+                "Debug",
+                "--project",
+                "${workspaceFolder}/coordinatorapi/src/CoordinatorApi"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "dotnet: format",
+            "type": "shell",
+            "command": "dotnet",
+            "args": [
+                "format"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "npm: run build",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "run",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/marketplaceapp"
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}
