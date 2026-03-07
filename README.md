@@ -20,13 +20,14 @@ Content operations move fast, not the least due to AI — and things get lost. W
 The Sitecore marketplace app Apparatus CIA solves this through ensuring an audit trail, that extends the default "last modified by" flow and improves the more elaborate audit trail obtained through the workflow engine.
 
 #### The What
-This is done by;
-  - managing revisions even within the same version of a content piece
-  - tracking deletions in addition to creations and modifications
-  - providing a side-by-side comparison of revisions
-  - supporting reverting revisions
-  - maintaining an append-only strategy to the records of revisions
-  - enabling sorting, filtering and export of records of revision
+
+  - Manage revisions even within the same version of a content piece
+  - Track deletions in addition to creations and modifications
+  - Compare revisions side-by-side 
+  - Revert revisions
+  - Sort, filter and export of records of revision
+  - Inspect revisions in the context of an item
+  - Maintains an append-only strategy to the records of revisions
 
 #### The How - TBW
 
