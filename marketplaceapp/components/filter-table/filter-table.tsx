@@ -329,7 +329,7 @@ export function FilterTable({
                 <TableCell>{entry.user}</TableCell>
                 <TableCell>
                   <Badge colorScheme="primary" size="sm">
-                    {entry.webHookData.changes.fieldChanges.length}
+                    {entry.webHookData.changes?.fieldChanges?.length > 0}
                   </Badge>
                 </TableCell>
                 <TableCell>{entry.user}</TableCell>

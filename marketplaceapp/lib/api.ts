@@ -40,7 +40,7 @@ export type ChangeModel = {
 export const webhookUrl = (instanceId: string) => `${urlPrefix}/receive/hook/${instanceId}`;
 
 export const getItems = async (instanceId: string, ids: string[]) => {
-    const itemsUrl = `${urlPrefix}/${instanceId}/items`;
+    const itemsUrl = `${urlPrefix}/query/${instanceId}/items`;
     const response = await fetch(itemsUrl, {
         method: 'POST',
         headers: {
@@ -50,6 +50,6 @@ export const getItems = async (instanceId: string, ids: string[]) => {
             Ids: ids
         })
     });
-    const json: ChangeModel[] = await response.json();
-    return json;
+    const json: { items: ChangeModel[] } = await response.json();
+    return json.items;
 };

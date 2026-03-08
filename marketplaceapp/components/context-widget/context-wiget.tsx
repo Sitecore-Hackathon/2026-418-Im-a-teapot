@@ -15,15 +15,15 @@ import { TimelineVersions, dummyVersionsData } from "@/components/timeline-versi
 import { FilterTable } from "@/components/filter-table";
 import { getItems, type ChangeModel } from '@/lib/api';
 
-async function fetchData(appContext?: ApplicationContext, pageContext?: PagesContext, filters?: Record<string, unknown>) {
-    if (!appContext?.installationId || !pageContext?.pageInfo?.id) {
+async function fetchData(installationId?: string, pageContext?: PagesContext, filters?: Record<string, unknown>) {
+    if (!installationId || !pageContext?.pageInfo?.id) {
         return {};
     }
-    const data = await getItems(appContext.installationId, [pageContext?.pageInfo?.id]);
+    const data = await getItems(installationId, [pageContext?.pageInfo?.id]);
 
     const versionsData = Object.groupBy(data, x => x.webHookData.item.version);
     const workflowData = Object.groupBy(data.filter(x => !!x.workflowStateId), x => x.workflowStateId!);
-    return {data, versionsData, workflowData};
+    return { data, versionsData, workflowData };
 }
 
 function PageContextWidget() {
@@ -37,21 +37,20 @@ function PageContextWidget() {
         client.query("pages.context", {
             subscribe: true,
             onSuccess: data => {
-                setData(undefined);
-                setPage(undefined);
-
-                setPage(data?.pageInfo);
-                fetchData(appContext, data?.pageInfo, {}).then(x => {
-                    setData(x.data);
-                });
+                setPage(data);
             },
             onError: err => {
+                console.error(err);
                 setPage(undefined);
-                setData(undefined);
-                console.warn(err);
             },
         });
-    }, [client, appContext, page]);
+    }, [client]);
+
+    useEffect(() => {
+        fetchData(appContext?.installationId, page, {}).then(x => {
+            setData(x.data);
+        });
+    }, [client, appContext?.installationId, page]);
 
     if (!page || !data) {
         return <Spinner variant="primary" />;
