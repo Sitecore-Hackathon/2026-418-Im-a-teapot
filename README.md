@@ -65,9 +65,9 @@ _Remove this subsection if your entry does not have any prerequisites other than
 
 ## Installation instructions
 
-When approved as a public Marketplace app by Sitecore:
+When approved as a public Marketplace app by Sitecore, follow the steps from <https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app> and select Apparatus CIA as the app you want to install.
 
-Follow the steps from <https://doc.sitecore.com/mp/en/developers/marketplace/discovering-apps-in-the-public-marketplace.html#install-an-app> and select Apparatus CIA as the app you want to install.
+Until then, **reach out to any of the team members to get invited to a SitecoreAI instance that has the app running**.
 
 ### Configuration
 
