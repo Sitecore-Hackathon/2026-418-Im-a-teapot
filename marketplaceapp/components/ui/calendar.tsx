@@ -6,14 +6,26 @@ import { format } from "date-fns";
 import * as React from "react";
 
 import {
-  type DayButton,
   DayPicker,
+  type CalendarDay,
+  type Modifiers,
   getDefaultClassNames,
 } from "react-day-picker";
+//import type { DayButton } from 'react-day-picker/dist/esm/components/DayButton'
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronDownIcon } from "lucide-react";
+
+import { type ButtonHTMLAttributes } from "react";
+export declare function DayButton(props: {
+    /** The day to render. */
+    day: CalendarDay;
+    /** The modifiers to apply to the day. */
+    modifiers: Modifiers;
+} & ButtonHTMLAttributes<HTMLButtonElement>): React.JSX.Element;
+export type DayButtonProps = Parameters<typeof DayButton>[0];
+
 
 function Calendar({
   className,
