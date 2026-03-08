@@ -56,7 +56,7 @@ mutation UpdateAuditorWebhook($itemId:ID!) {
 }`;
 
 const createWebhookQuery = `
-mutation CreateAuditorWebhook($itemId:ID!) {
+mutation CreateAuditorWebhook {
     createItem(input: {
         name: "${webhookItemName}"
         templateId: "${webhookTemplateId}"
