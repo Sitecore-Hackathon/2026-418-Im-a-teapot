@@ -29,17 +29,12 @@ Current features include:
 
 - Manage revisions even within the same version of a content piece
 - Track deletions in addition to creations and modifications
-- Sort, filter and export of records of revision
+- Sort, filter and export of records of revision (export currently blocked due to widget is a sandboxed iframe with no option of allowing downloads)
 - Inspect revisions in the context of an item
 - See statistics on dashboard widgets (number of items published, fastest, slowest and average time from version creation to version published)
 - Maintains an append-only strategy to the records of revisions
 
-#### The How - TBW
-
-- Components
-- Screenshots
-
-#### Architecture
+#### The How - Architecture
 
 ![Architecture](docs/images/architecture.png?raw=true "Architecture")
 
@@ -126,7 +121,7 @@ The second view pivots around the workflow states and can in the same way as the
 
 The Marketplace app is conform to the requirements for being published as a Public app in accordance with:
 
-https://statics.teams.cdn.office.net/evergreen-assets/safelinks/2/atp-safelinks.html
+https://doc.sitecore.com/mp/en/developers/marketplace/sitecore-security-checklist.html#regulatory-compliance
 
 Required policies:
 
