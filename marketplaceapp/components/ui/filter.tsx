@@ -90,9 +90,9 @@ export interface FilterMultiSelectProps {
 }
 
 export type FilterDefinition =
-  | { type: "input"; key: string; props: FilterInputProps }
-  | { type: "single-select"; key: string; props: FilterSingleSelectProps }
-  | { type: "multi-select"; key: string; props: FilterMultiSelectProps };
+  | { type: "input"; key: string; props: FilterInputProps; }
+  | { type: "single-select"; key: string; props: FilterSingleSelectProps; }
+  | { type: "multi-select"; key: string; props: FilterMultiSelectProps; };
 
 export interface FilterBarProps {
   filters: FilterDefinition[];
@@ -474,110 +474,113 @@ const FilterMultiSelect = React.forwardRef<
         {name && <input type="hidden" name={name} value={values.join(",")} />}
         <div className="relative inline-flex w-fit">
           <Popover open={open} onOpenChange={handleOpenChange}>
-            <PopoverTrigger render={<Button ref={ref} variant="outline" disabled={disabled} aria-describedby={describedBy} className={cn(
-                                      "w-fit justify-between rounded-md px-3 py-2 h-10 bg-white",
-                                      hasValues && "pr-8 overflow-hidden",
-                                      open &&
-                                        "bg-primary-bg text-primary-fg border-primary hover:bg-primary-bg hover:text-primary-fg",
-                                    )} />}><span className="flex items-center gap-0.5 pointer-events-none min-w-0 overflow-hidden flex-wrap">
-                                      <span
-                                        className={cn(
-                                          "font-semibold truncate",
-                                          open && "text-primary-fg",
-                                          !open && "text-neutral-fg",
-                                        )}
-                                      >
-                                        {placeholder}
-                                      </span>
-                                      {hasValues && showSelectedCount && displayMode === "text" && (
-                                        <Badge colorScheme="neutral" size="sm" className="ml-1.5">
-                                          {values.length}
-                                        </Badge>
-                                      )}
-                                      {hasValues &&
-                                        !showSelectedCount &&
-                                        displayMode === "text" && (
-                                          <>
-                                            <span
-                                              className={cn(
-                                                open && "text-primary-fg",
-                                                !open && "text-neutral-fg",
-                                              )}
-                                            >
-                                              :
-                                            </span>
-                                            <span
-                                              className={cn(
-                                                "font-normal truncate min-w-0 ml-0.5",
-                                                open && "text-primary-fg",
-                                                !open && "text-neutral-fg",
-                                              )}
-                                            >
-                                              {getDisplayText(selectedLabels)}
-                                            </span>
-                                          </>
-                                        )}
-                                      {hasValues && displayMode === "badge" && (
-                                        <>
-                                          <span className="text-neutral-fg">:</span>
-                                          <span className="flex items-center gap-1.5 flex-wrap min-w-0 ml-0.5">
-                                            {values.slice(0, maxDisplayItems).map((val) => {
-                                              const label = options.find(
-                                                (opt) => opt.value === val,
-                                              )?.label;
-                                              if (!label) return null;
-                                              return (
-                                                <Badge
-                                                  key={val}
-                                                  colorScheme="neutral"
-                                                  size="sm"
-                                                  style={{ minHeight: "1.5rem" }}
-                                                  className="overflow-visible!"
-                                                >
-                                                  <span>{label}</span>
-                                                  <span
-                                                    role="button"
-                                                    tabIndex={0}
-                                                    className="cursor-pointer rounded-full p-0 hover:bg-neutral-bg-active flex items-center justify-center -mr-1 pointer-events-auto focus:outline-none focus:ring-1 focus:ring-ring"
-                                                    onClick={(e) => handleRemoveBadge(val, e)}
-                                                    onKeyDown={(e) => {
-                                                      if (e.key === "Enter" || e.key === " ") {
-                                                        e.preventDefault();
-                                                        handleRemoveBadge(
-                                                          val,
-                                                          e as unknown as React.MouseEvent,
-                                                        );
-                                                      }
-                                                    }}
-                                                    aria-label={`Remove ${label}`}
-                                                  >
-                                                    <Icon
-                                                      path={mdiClose}
-                                                      size={0.7}
-                                                      className="pointer-events-none"
-                                                    />
-                                                  </span>
-                                                </Badge>
-                                              );
-                                            })}
-                                            {values.length > maxDisplayItems && (
-                                              <span className="text-neutral-fg font-normal">
-                                                +{values.length - maxDisplayItems}
-                                                <span className="sr-only">
-                                                  {values.length - maxDisplayItems} more selected
-                                                </span>
-                                              </span>
-                                            )}
-                                          </span>
-                                        </>
-                                      )}
-                                    </span>{!hasValues && (
-                                      <Icon
-                                        path={mdiChevronDown}
-                                        size={1.3}
-                                        className="opacity-50 pointer-events-none"
-                                      />
-                                    )}</PopoverTrigger>
+            <PopoverTrigger asChild>
+              <Button ref={ref} variant="outline" disabled={disabled} aria-describedby={describedBy} className={cn(
+                "w-fit justify-between rounded-md px-3 py-2 h-10 bg-white",
+                hasValues && "pr-8 overflow-hidden",
+                open &&
+                "bg-primary-bg text-primary-fg border-primary hover:bg-primary-bg hover:text-primary-fg",
+              )} /><span className="flex items-center gap-0.5 pointer-events-none min-w-0 overflow-hidden flex-wrap">
+                <span
+                  className={cn(
+                    "font-semibold truncate",
+                    open && "text-primary-fg",
+                    !open && "text-neutral-fg",
+                  )}
+                >
+                  {placeholder}
+                </span>
+                {hasValues && showSelectedCount && displayMode === "text" && (
+                  <Badge colorScheme="neutral" size="sm" className="ml-1.5">
+                    {values.length}
+                  </Badge>
+                )}
+                {hasValues &&
+                  !showSelectedCount &&
+                  displayMode === "text" && (
+                    <>
+                      <span
+                        className={cn(
+                          open && "text-primary-fg",
+                          !open && "text-neutral-fg",
+                        )}
+                      >
+                        :
+                      </span>
+                      <span
+                        className={cn(
+                          "font-normal truncate min-w-0 ml-0.5",
+                          open && "text-primary-fg",
+                          !open && "text-neutral-fg",
+                        )}
+                      >
+                        {getDisplayText(selectedLabels)}
+                      </span>
+                    </>
+                  )}
+                {hasValues && displayMode === "badge" && (
+                  <>
+                    <span className="text-neutral-fg">:</span>
+                    <span className="flex items-center gap-1.5 flex-wrap min-w-0 ml-0.5">
+                      {values.slice(0, maxDisplayItems).map((val) => {
+                        const label = options.find(
+                          (opt) => opt.value === val,
+                        )?.label;
+                        if (!label) return null;
+                        return (
+                          <Badge
+                            key={val}
+                            colorScheme="neutral"
+                            size="sm"
+                            style={{ minHeight: "1.5rem" }}
+                            className="overflow-visible!"
+                          >
+                            <span>{label}</span>
+                            <span
+                              role="button"
+                              tabIndex={0}
+                              className="cursor-pointer rounded-full p-0 hover:bg-neutral-bg-active flex items-center justify-center -mr-1 pointer-events-auto focus:outline-none focus:ring-1 focus:ring-ring"
+                              onClick={(e) => handleRemoveBadge(val, e)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                  e.preventDefault();
+                                  handleRemoveBadge(
+                                    val,
+                                    e as unknown as React.MouseEvent,
+                                  );
+                                }
+                              }}
+                              aria-label={`Remove ${label}`}
+                            >
+                              <Icon
+                                path={mdiClose}
+                                size={0.7}
+                                className="pointer-events-none"
+                              />
+                            </span>
+                          </Badge>
+                        );
+                      })}
+                      {values.length > maxDisplayItems && (
+                        <span className="text-neutral-fg font-normal">
+                          +{values.length - maxDisplayItems}
+                          <span className="sr-only">
+                            {values.length - maxDisplayItems} more selected
+                          </span>
+                        </span>
+                      )}
+                    </span>
+                  </>
+                )}
+              </span>
+              {!hasValues && (
+                <Icon
+                  path={mdiChevronDown}
+                  size={1.3}
+                  className="opacity-50 pointer-events-none"
+                />
+              )}
+            </PopoverTrigger>
             <PopoverContent
               className="w-(--radix-popover-trigger-width) p-1"
               align="start"

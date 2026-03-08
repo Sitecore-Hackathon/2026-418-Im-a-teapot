@@ -41,7 +41,7 @@ function PageContextWidget() {
                 setPage(undefined);
 
                 setPage(data?.pageInfo);
-                fetchData(appContext, page, {}).then(x => {
+                fetchData(appContext, data?.pageInfo, {}).then(x => {
                     setData(x.data);
                 });
             },

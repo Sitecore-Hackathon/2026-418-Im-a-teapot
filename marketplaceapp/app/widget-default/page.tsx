@@ -10,7 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-import { DatePickerWithRange } from "@/components/ui/date-picker"
+// import { DatePickerWithRange } from "@/components/ui/date-picker"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
@@ -285,7 +285,7 @@ function WidgetDefault() {
             </div>
             {filters.dateRange.preset === "custom" && (
               <div className="mt-2">
-                <DatePickerWithRange />
+                {/* <DatePickerWithRange /> */}
               </div>
             )}
           </div>
@@ -403,7 +403,7 @@ function WidgetDefault() {
         </div>
         {filters.dateRange.preset === "custom" && (
           <div className="flex gap-2 md:col-span-3">
-            <DatePickerWithRange />
+            {/* <DatePickerWithRange /> */}
           </div>
         )}
         {/* Metrics Summary */}

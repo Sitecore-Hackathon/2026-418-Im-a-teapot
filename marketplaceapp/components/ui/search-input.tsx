@@ -109,10 +109,14 @@ function SearchInputClearButton({
 }: SearchInputClearButtonProps) {
   return (
     <Tooltip>
-      <TooltipTrigger render={<Button type="button" variant="ghost" size="icon-xs" colorScheme="neutral" aria-label={tooltipLabel} onClick={onClear} className={cn(
-                      "text-subtle-text hover:text-body-text hover:bg-neutral-bg-active focus:outline-none",
-                      className,
-                    )} {...props} />}><Icon path={mdiClose} size={0.75} /></TooltipTrigger>
+      <TooltipTrigger>
+        <Button type="button" variant="ghost" size="icon-xs" colorScheme="neutral" aria-label={tooltipLabel} onClick={onClear} className={cn(
+          "text-subtle-text hover:text-body-text hover:bg-neutral-bg-active focus:outline-none",
+          className,
+        )}
+          {...props}
+        />
+        <Icon path={mdiClose} size={0.75} /></TooltipTrigger>
       <TooltipContent>{tooltipLabel}</TooltipContent>
     </Tooltip>
   );
