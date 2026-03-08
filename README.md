@@ -55,13 +55,7 @@ Upcoming features include:
 
 ## Pre-requisites and Dependencies
 
-⟹ Does your module rely on other Sitecore modules or frameworks?
-
-- List any dependencies
-- Or other modules that must be installed
-- Or services that must be enabled/configured
-
-_Remove this subsection if your entry does not have any prerequisites other than Sitecore_
+- Sitecore Cloud user so can get an invite to SitecoreAI instance with running marketplace app.
 
 ## Installation instructions
 
