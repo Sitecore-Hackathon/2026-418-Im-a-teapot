@@ -11,18 +11,48 @@ import {
 } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TimelineVersions, dummyVersionsData } from "@/components/timeline-versions/timeline-version";
+import { TimelineVersions, VersionEvent, VersionGroup, dummyVersionsData } from "@/components/timeline-versions/timeline-version";
 import { FilterTable } from "@/components/filter-table";
 import { getItems, type ChangeModel } from '@/lib/api';
 
-async function fetchData(installationId?: string, pageContext?: PagesContext, filters?: Record<string, unknown>) {
+type AllData = {
+    data?: ChangeModel[];
+    versionsData?: VersionGroup[];
+    workflowData?: VersionGroup[];
+};
+
+function mapGroup(groups: Partial<Record<string, ChangeModel[]>>) {
+    const result = [];
+    for (const key of Object.keys(groups)) {
+        if (!groups[key]) {
+            continue;
+        }
+
+        const events: VersionEvent[] = groups[key].map(x => ({
+            time: x.timestamp,
+            action: x.webHookData.eventName,
+            state: x.workflowStateId ?? ''
+        }));
+
+        const group: VersionGroup = {
+            name: key,
+            id: key,
+            events
+        };
+        result.push(group);
+    }
+
+    return result;
+}
+
+async function fetchData(installationId?: string, pageContext?: PagesContext, filters?: Record<string, unknown>): Promise<AllData> {
     if (!installationId || !pageContext?.pageInfo?.id) {
         return {};
     }
     const data = await getItems(installationId, [pageContext?.pageInfo?.id]);
 
-    const versionsData = Object.groupBy(data, x => x.webHookData.item.version);
-    const workflowData = Object.groupBy(data.filter(x => !!x.workflowStateId), x => x.workflowStateId!);
+    const versionsData = mapGroup(Object.groupBy(data, x => x.webHookData.item.version + ''));
+    const workflowData = mapGroup(Object.groupBy(data.filter(x => !!x.workflowStateId), x => x.workflowStateId!));
     return { data, versionsData, workflowData };
 }
 
@@ -31,7 +61,7 @@ function PageContextWidget() {
     const appContext = useAppContext();
 
     const [page, setPage] = useState<PagesContext>();
-    const [data, setData] = useState<ChangeModel[]>();
+    const [data, setData] = useState<AllData>();
 
     useEffect(() => {
         client.query("pages.context", {
@@ -48,7 +78,7 @@ function PageContextWidget() {
 
     useEffect(() => {
         fetchData(appContext?.installationId, page, {}).then(x => {
-            setData(x.data);
+            setData(x);
         });
     }, [client, appContext?.installationId, page]);
 
@@ -68,7 +98,7 @@ function PageContextWidget() {
                         <CardHeader>
                             <CardTitle>Versions</CardTitle>
                             <CardDescription>
-                                <TimelineVersions versions={dummyVersionsData} />
+                                <TimelineVersions versions={data.versionsData ?? []} />
                             </CardDescription>
                         </CardHeader>
                     </Card>
@@ -78,14 +108,14 @@ function PageContextWidget() {
                         <CardHeader>
                             <CardTitle>Workflows</CardTitle>
                             <CardDescription>
-                                Similar with workflows....
+                                <TimelineVersions versions={data.workflowData ?? []} />
                             </CardDescription>
                         </CardHeader>
                     </Card>
                 </TabsContent>
             </Tabs>
             <FilterTable
-                data={data}
+                data={data.data}
                 showFieldChanges={true}
                 debounceTime={500}
                 emptyStateMessage="No actions found matching your criteria"
