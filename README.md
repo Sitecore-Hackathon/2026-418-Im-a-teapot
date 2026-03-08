@@ -49,9 +49,7 @@ Upcoming features include:
 
 ## Video link
 
-⟹ Provide a video highlighting your Hackathon module submission and provide a link to the video. You can use any video hosting, file share or even upload the video to this repository. _Just remember to update the link below_
-
-⟹ [Replace this Video link](#video-link)
+[Video Presenting Apparatus CIA ](https://asmblii.sharepoint.com/:v:/s/asmbliiApS/IQCF18DSbTnVQp2IF0oHDOumAZs2CTLQbsRkUU7O-krU6BI?e=Vn6QWX)
 
 ## Pre-requisites and Dependencies
 
