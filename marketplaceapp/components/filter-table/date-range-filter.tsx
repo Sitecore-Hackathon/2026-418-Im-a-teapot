@@ -7,7 +7,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+/* Calendar from Sitecore Blok is not working when building
 import { Calendar } from "@/components/ui/calendar"
+*/
 import { CalendarIcon, AlertTriangle } from "lucide-react"
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
@@ -110,15 +112,7 @@ export function DateRangeFilter({
           </div>
 
           <div className="grid gap-4">
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={dateRange?.from}
-              selected={dateRange}
-              onSelect={handleDateChange}
-              numberOfMonths={2}
-              captionLayout="dropdown"
-            />
+            <input type="date" />
           </div>
 
           <div className="flex justify-end">
