@@ -1,4 +1,4 @@
-![Hackathon Logo](docs/images/hackathon.png?raw=true "Hackathon Logo")
+![Hackathon Logo](docs/images/hackathon.png "Hackathon Logo")
 
 # Sitecore Hackathon 2026
 
@@ -36,7 +36,7 @@ Current features include:
 
 #### The How - Architecture
 
-![Architecture](docs/images/architecture.png?raw=true "Architecture")
+![Architecture](docs/images/architecture.png "Architecture")
 
 #### The Next
 
@@ -93,14 +93,14 @@ For each revision it can be seen exactly what fields has changed and what the va
 
 Get an overview, with the first of Apparatus CIA's dashboard widgets, of how fast and intensive your content team is working. Identify peak periods and potential bottlenecks by looking at numbers of finalized and published content pieces as well as the time they have been in the making. Compare it to key metrics for instance for fastest and slowest production time as well as the average time to produce a content piece in any given time period.
 
-![Local Audit Trail: Publishing Performance - part 1](docs/images/localaudittrail1.png?raw=true "Local Audit Trail: Publishing Performance - part 1")
-![Local Audit Trail: Publishing Performance - part 2](docs/images/localaudittrail2.png?raw=true "Local Audit Trail: Publishing Performance - part 2")
+![Local Audit Trail: Publishing Performance - part 1](docs/images/localaudittrail1.png "Local Audit Trail: Publishing Performance - part 1")
+![Local Audit Trail: Publishing Performance - part 2](docs/images/localaudittrail2.png "Local Audit Trail: Publishing Performance - part 2")
 
 #### Workflow bottlenecks and overdue tasks
 
 With the second widget you are enabled to select specific workflow states and provide a threshold counted in days and hours and based on your input see all item versions that are still pending in that state. The widget allows you to click directly on any version you want to pick up the work on and have you redirected to the page builder with that version in focus ready to work.
 
-![Workflow: Overdue Tasks](docs/images/workflowOverdueTasks.png?raw=true "Workflow: Overdue Tasks")
+![Workflow: Overdue Tasks](docs/images/workflowOverdueTasks.png "Workflow: Overdue Tasks")
 
 #### Page builder context panel
 
@@ -109,13 +109,13 @@ Being in the context of a specific item, you are able to open the page builder c
 In the first view you will have a timeline overview of how the item has moved through a workflow
 followed by a table of all the different versions even if in the same workflow state, which is not possible in the default workflow engine, and see the exact field changes. There are filtering options providing you with only relevant revisions, for instance made by the same author.
 
-![Page Builder Context Panel: Versions](docs/images/PageContextPanel-Versions.png?raw=true "Page Builder Context Panel: Versions")
+![Page Builder Context Panel: Versions](docs/images/PageContextPanel-Versions.png "Page Builder Context Panel: Versions")
 
 The second view pivots around the workflow states and can in the same way as the first be filtered, for instance to sepcific states. Again exact changes can be seen.
 
-![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png?raw=true "Page Builder Context Panel: Workflow - part 1")
+![Page Builder Context Panel: Workflow - part 1](docs/images/PageContextPanel-Workflows.png "Page Builder Context Panel: Workflow - part 1")
 
-![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png?raw=true "Page Builder Context Panel: Workflow - part 2")
+![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png "Page Builder Context Panel: Workflow - part 2")
 
 ## Comments
 
