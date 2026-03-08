@@ -111,6 +111,12 @@ The second view pivots around the workflow states and can in the same way as the
 
 ![Page Builder Context Panel: Workflow - part 2](docs/images/PageContextPanel-Workflows2.png "Page Builder Context Panel: Workflow - part 2")
 
+![Page Builder Context Panel: Data](docs/images/widget-changes.png)
+
+#### Standalone filtering
+
+![Standalone list filtering](docs/images/standalone-expanded.png)
+
 ## Comments
 
 The Marketplace app is conform to the requirements for being published as a Public app in accordance with:
