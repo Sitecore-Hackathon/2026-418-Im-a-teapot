@@ -17,10 +17,13 @@ import { getItems, type ChangeModel } from '@/lib/api';
 
 async function fetchData(appContext?: ApplicationContext, pageContext?: PagesContext, filters?: Record<string, unknown>) {
     if (!appContext?.installationId || !pageContext?.pageInfo?.id) {
-        return [];
+        return {};
     }
-    const response = await getItems(appContext.installationId, [pageContext?.pageInfo?.id]);
-    return response;
+    const data = await getItems(appContext.installationId, [pageContext?.pageInfo?.id]);
+
+    const versionsData = Object.groupBy(data, x => x.webHookData.item.version);
+    const workflowData = Object.groupBy(data.filter(x => !!x.workflowStateId), x => x.workflowStateId!);
+    return {data, versionsData, workflowData};
 }
 
 function PageContextWidget() {
@@ -38,7 +41,9 @@ function PageContextWidget() {
                 setPage(undefined);
 
                 setPage(data?.pageInfo);
-                fetchData(appContext, page, {}).then(x => setData(x));
+                fetchData(appContext, page, {}).then(x => {
+                    setData(x.data);
+                });
             },
             onError: err => {
                 setPage(undefined);

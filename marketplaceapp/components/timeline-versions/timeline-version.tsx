@@ -27,9 +27,9 @@ export type VersionGroup = {
 
 const lastItemClassNames = 'flex items-center gap-2 flex-wrap';
 
-function TimelineVersionEvent({ itm, grp, previous, isLast }: { itm: VersionEvent, grp: VersionGroup, previous: VersionEvent | null, isLast: bool; }): ReactNode {
+function TimelineVersionEvent({ itm, grp, previous, isLast }: { itm: VersionEvent, grp: VersionGroup, previous: VersionEvent | null, isLast: boolean; }): ReactNode {
     return (
-        < TimelineItem >
+        <TimelineItem>
             <TimelineSeparator>
                 <TimelineIndicator variant="solid">
                     <UserAvatar user={itm.user} />
